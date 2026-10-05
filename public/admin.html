@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>HPFAF - Admin Panel</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#f4f7fb;
+  color:#172033;
+}
+
+/* HEADER */
+
+header{
+  background:linear-gradient(135deg,#0757c9,#1685ff);
+  color:white;
+  padding:24px 18px;
+  box-shadow:0 4px 15px rgba(0,0,0,.12);
+}
+
+header h1{
+  font-size:25px;
+  margin-bottom:6px;
+}
+
+header p{
+  opacity:.9;
+  font-size:14px;
+}
+
+/* CONTAINER */
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
+}
+
+/* STATS */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  margin-bottom:20px;
+}
+
+.stat{
+  background:white;
+  border-radius:16px;
+  padding:18px;
+  box-shadow:0 4px 15px rgba(0,0,0,.07);
+}
+
+.stat h3{
+  font-size:13px;
+  color:#687386;
+  margin-bottom:8px;
+}
+
+.stat strong{
+  font-size:28px;
+}
+
+/* FILTER */
+
+.filters{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+}
+
+.filter-btn{
+  border:none;
+  padding:11px 18px;
+  border-radius:10px;
+  background:white;
+  color:#333;
+  cursor:pointer;
+  font-weight:bold;
+  box-shadow:0 2px 8px rgba(0,0,0,.08);
+}
+
+.filter-btn.active{
+  background:#0757c9;
+  color:white;
+}
+
+/* TITLE */
+
+.section-title{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:15px;
+}
+
+.section-title h2{
+  font-size:21px;
+}
+
+/* PROVIDER CARD */
+
+.provider-card{
+  background:white;
+  border-radius:18px;
+  padding:20px;
+  margin-bottom:16px;
+  box-shadow:0 5px 18px rgba(0,0,0,.08);
+  border-left:5px solid #0757c9;
+}
+
+.provider-top{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  align-items:flex-start;
+  margin-bottom:15px;
+}
+
+.provider-name{
+  font-size:20px;
+  font-weight:bold;
+  color:#172033;
+}
+
+.provider-id{
+  margin-top:5px;
+  font-size:13px;
+  color:#657086;
+}
+
+.status{
+  padding:7px 12px;
+  border-radius:20px;
+  font-size:12px;
+  font-weight:bold;
+  white-space:nowrap;
+}
+
+.status.pending{
+  background:#fff3cd;
+  color:#856404;
+}
+
+.status.approved{
+  background:#dff7e8;
+  color:#137333;
+}
+
+.info{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-bottom:18px;
+}
+
+.info-box{
+  background:#f7f9fc;
+  padding:12px;
+  border-radius:10px;
+}
+
+.info-box small{
+  display:block;
+  color:#7b8494;
+  font-size:11px;
+  margin-bottom:4px;
+}
+
+.info-box span{
+  font-size:14px;
+  word-break:break-word;
+}
+
+/* BUTTONS */
+
+.actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+button{
+  border:none;
+  cursor:pointer;
+}
+
+.approve-btn{
+  background:#168a4b;
+  color:white;
+  padding:11px 18px;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+.reject-btn{
+  background:#dc3545;
+  color:white;
+  padding:11px 18px;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+.refresh-btn{
+  background:#0757c9;
+  color:white;
+  padding:11px 18px;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+.home-btn{
+  background:white;
+  color:#0757c9;
+  padding:11px 18px;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+/* EMPTY */
+
+.empty{
+  background:white;
+  padding:35px;
+  border-radius:16px;
+  text-align:center;
+  color:#687386;
+  box-shadow:0 4px 15px rgba(0,0,0,.06);
+}
+
+/* LOADING */
+
+.loading{
+  text-align:center;
+  padding:35px;
+  color:#657086;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+  .stats{
+    grid-template-columns:1fr;
+  }
+
+  .info{
+    grid-template-columns:1fr;
+  }
+
+  .provider-top{
+    flex-direction:column;
+  }
+
+  .actions button{
+    width:100%;
+  }
+
+  .section-title{
+    align-items:flex-start;
+    gap:10px;
+    flex-direction:column;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>HPFAF-2026 Admin Panel</h1>
+  <p>Hospital Provider Verification & Management</p>
+</header>
+
+<div class="container">
+
+  <!-- STATS -->
+
+  <div class="stats">
+
+    <div class="stat">
+      <h3>Total Providers</h3>
+      <strong id="totalCount">0</strong>
+    </div>
+
+    <div class="stat">
+      <h3>Pending Approval</h3>
+      <strong id="pendingCount">0</strong>
+    </div>
+
+    <div class="stat">
+      <h3>Approved</h3>
+      <strong id="approvedCount">0</strong>
+    </div>
+
+  </div>
+
+  <!-- FILTERS -->
+
+  <div class="filters">
+
+    <button
+      class="filter-btn active"
+      id="allFilter"
+      onclick="setFilter('all')">
+      All
+    </button>
+
+    <button
+      class="filter-btn"
+      id="pendingFilter"
+      onclick="setFilter('pending')">
+      Pending
+    </button>
+
+    <button
+      class="filter-btn"
+      id="approvedFilter"
+      onclick="setFilter('approved')">
+      Approved
+    </button>
+
+    <button
+      class="refresh-btn"
+      onclick="loadProviders()">
+      🔄 Refresh
+    </button>
+
+    <button
+      class="home-btn"
+      onclick="location.href='index.html'">
+      🏠 Home
+    </button>
+
+  </div>
+
+  <!-- PROVIDERS -->
+
+  <div class="section-title">
+
+    <h2>Hospital Providers</h2>
+
+    <span id="lastUpdated"></span>
+
+  </div>
+
+  <div id="providerList">
+
+    <div class="loading">
+      Loading providers...
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+let providers = [];
+
+let currentFilter = "all";
+
+
+/* =========================================================
+   LOAD PROVIDERS
+========================================================= */
+
+async function loadProviders(){
+
+  const list =
+    document.getElementById("providerList");
+
+  list.innerHTML = `
+    <div class="loading">
+      Loading providers...
+    </div>
+  `;
+
+  try{
+
+    const response =
+      await fetch("/api/admin/providers",{
+        cache:"no-store"
+      });
+
+    const data =
+      await response.json();
+
+    console.log(
+      "PROVIDERS:",
+      data
+    );
+
+    if(!response.ok){
+
+      throw new Error(
+        data.message ||
+        "Unable to load providers"
+      );
+
+    }
+
+    if(data.success !== true){
+
+      throw new Error(
+        data.message ||
+        "Unable to load providers"
+      );
+
+    }
+
+    providers =
+      Array.isArray(data.providers)
+        ? data.providers
+        : [];
+
+    updateStats();
+
+    renderProviders();
+
+    document.getElementById(
+      "lastUpdated"
+    ).textContent =
+      "Updated: " +
+      new Date().toLocaleTimeString();
+
+  }
+  catch(error){
+
+    console.error(
+      "LOAD PROVIDERS ERROR:",
+      error
+    );
+
+    list.innerHTML = `
+      <div class="empty">
+        ❌ Unable to load providers
+        <br><br>
+        ${escapeHtml(error.message)}
+      </div>
+    `;
+
+  }
+
+}
+
+
+/* =========================================================
+   UPDATE STATS
+========================================================= */
+
+function updateStats(){
+
+  const total =
+    providers.length;
+
+  const pending =
+    providers.filter(
+      p => Number(p.approved) !== 1
+    ).length;
+
+  const approved =
+    providers.filter(
+      p => Number(p.approved) === 1
+    ).length;
+
+  document.getElementById(
+    "totalCount"
+  ).textContent = total;
+
+  document.getElementById(
+    "pendingCount"
+  ).textContent = pending;
+
+  document.getElementById(
+    "approvedCount"
+  ).textContent = approved;
+
+}
+
+
+/* =========================================================
+   FILTER
+========================================================= */
+
+function setFilter(filter){
+
+  currentFilter =
+    filter;
+
+  document
+    .querySelectorAll(".filter-btn")
+    .forEach(button => {
+      button.classList.remove("active");
+    });
+
+  if(filter === "all"){
+    document
+      .getElementById("allFilter")
+      .classList.add("active");
+  }
+
+  if(filter === "pending"){
+    document
+      .getElementById("pendingFilter")
+      .classList.add("active");
+  }
+
+  if(filter === "approved"){
+    document
+      .getElementById("approvedFilter")
+      .classList.add("active");
+  }
+
+  renderProviders();
+
+}
+
+
+/* =========================================================
+   RENDER PROVIDERS
+========================================================= */
+
+function renderProviders(){
+
+  const list =
+    document.getElementById(
+      "providerList"
+    );
+
+  let filtered =
+    [...providers];
+
+  if(currentFilter === "pending"){
+
+    filtered =
+      filtered.filter(
+        p => Number(p.approved) !== 1
+      );
+
+  }
+
+  if(currentFilter === "approved"){
+
+    filtered =
+      filtered.filter(
+        p => Number(p.approved) === 1
+      );
+
+  }
+
+  if(filtered.length === 0){
+
+    list.innerHTML = `
+      <div class="empty">
+        No providers found.
+      </div>
+    `;
+
+    return;
+  }
+
+  list.innerHTML =
+    filtered.map(
+      providerCard
+    ).join("");
+
+}
+
+
+/* =========================================================
+   PROVIDER CARD
+========================================================= */
+
+function providerCard(provider){
+
+  const approved =
+    Number(provider.approved) === 1;
+
+  const statusClass =
+    approved
+      ? "approved"
+      : "pending";
+
+  const statusText =
+    approved
+      ? "APPROVED"
+      : "PENDING";
+
+  const created =
+    provider.created_at
+      ? new Date(
+          provider.created_at
+        ).toLocaleString()
+      : "—";
+
+  let buttons = "";
+
+  if(!approved){
+
+    buttons += `
+      <button
+        class="approve-btn"
+        onclick="approveProvider(${Number(provider.id)})">
+        ✓ Approve
+      </button>
+    `;
+
+  }
+
+  buttons += `
+    <button
+      class="reject-btn"
+      onclick="rejectProvider(${Number(provider.id)})">
+      ✕ Reject & Delete
+    </button>
+  `;
+
+  return `
+
+    <div class="provider-card">
+
+      <div class="provider-top">
+
+        <div>
+
+          <div class="provider-name">
+            ${escapeHtml(
+              provider.hospital_name
+            )}
+          </div>
+
+          <div class="provider-id">
+            Provider ID:
+            <strong>
+              ${Number(provider.id)}
+            </strong>
+          </div>
+
+        </div>
+
+        <span class="status ${statusClass}">
+          ${statusText}
+        </span>
+
+      </div>
+
+
+      <div class="info">
+
+        <div class="info-box">
+          <small>City</small>
+          <span>
+            ${escapeHtml(
+              provider.city
+            )}
+          </span>
+        </div>
+
+        <div class="info-box">
+          <small>Phone</small>
+          <span>
+            ${escapeHtml(
+              provider.phone
+            )}
+          </span>
+        </div>
+
+        <div class="info-box">
+          <small>Address</small>
+          <span>
+            ${escapeHtml(
+              provider.address
+            )}
+          </span>
+        </div>
+
+        <div class="info-box">
+          <small>Registered</small>
+          <span>
+            ${escapeHtml(
+              created
+            )}
+          </span>
+        </div>
+
+      </div>
+
+
+      <div class="actions">
+
+        ${buttons}
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =========================================================
+   APPROVE PROVIDER
+========================================================= */
+
+async function approveProvider(providerId){
+
+  const provider =
+    providers.find(
+      p => Number(p.id) === Number(providerId)
+    );
+
+  const hospitalName =
+    provider
+      ? provider.hospital_name
+      : "this provider";
+
+  if(!confirm(
+    `Approve "${hospitalName}"?\n\n` +
+    `Provider ID: ${providerId}`
+  )){
+    return;
+  }
+
+  try{
+
+    const response =
+      await fetch(
+        "/api/admin/provider/approve",
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+
+          body:JSON.stringify({
+            providerId:
+              Number(providerId)
+          })
+        }
+      );
+
+    const data =
+      await response.json();
+
+    console.log(
+      "APPROVE RESPONSE:",
+      data
+    );
+
+    if(
+      !response.ok ||
+      data.success !== true
+    ){
+
+      throw new Error(
+        data.message ||
+        "Provider approval failed"
+      );
+
+    }
+
+    alert(
+      "✅ Provider approved successfully."
+    );
+
+    await loadProviders();
+
+  }
+  catch(error){
+
+    console.error(
+      "APPROVE ERROR:",
+      error
+    );
+
+    alert(
+      "❌ Approve failed\n\n" +
+      error.message
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   REJECT + DELETE PROVIDER
+========================================================= */
+
+async function rejectProvider(providerId){
+
+  const provider =
+    providers.find(
+      p => Number(p.id) === Number(providerId)
+    );
+
+  const hospitalName =
+    provider
+      ? provider.hospital_name
+      : "this provider";
+
+
+  const confirmed =
+    confirm(
+      `⚠️ Reject & permanently delete this provider?\n\n` +
+      `Hospital: ${hospitalName}\n` +
+      `Provider ID: ${providerId}\n\n` +
+      `This will delete:\n` +
+      `• Hospital provider record\n` +
+      `• Bed data\n` +
+      `• Blood data\n` +
+      `• Medicine data\n` +
+      `• Related blood requests\n\n` +
+      `This action cannot be undone.`
+    );
+
+
+  if(!confirmed){
+    return;
+  }
+
+
+  try{
+
+    const response =
+      await fetch(
+        "/api/admin/provider/reject",
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+
+          body:JSON.stringify({
+            providerId:
+              Number(providerId)
+          })
+        }
+      );
+
+
+    /*
+      JSON response safely read
+    */
+
+    let data = {};
+
+    try{
+      data =
+        await response.json();
+    }
+    catch(jsonError){
+
+      throw new Error(
+        "Server returned an invalid response."
+      );
+
+    }
+
+
+    console.log(
+      "DELETE RESPONSE:",
+      data
+    );
+
+
+    /*
+      HTTP ERROR
+    */
+
+    if(!response.ok){
+
+      throw new Error(
+        data.message ||
+        `Server error (${response.status})`
+      );
+
+    }
+
+
+    /*
+      DELETE SUCCESS
+    */
+
+    if(
+      data.success === true &&
+      data.deleted === true
+    ){
+
+      alert(
+        "✅ Provider rejected and deleted successfully.\n\n" +
+        "Provider ID: " +
+        data.providerId
+      );
+
+
+      /*
+        Reload list from database
+      */
+
+      await loadProviders();
+
+      return;
+
+    }
+
+
+    /*
+      Unexpected server response
+    */
+
+    throw new Error(
+      data.message ||
+      "Provider was not deleted."
+    );
+
+
+  }
+  catch(error){
+
+    console.error(
+      "REJECT/DELETE ERROR:",
+      error
+    );
+
+
+    alert(
+      "❌ Delete failed\n\n" +
+      error.message
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   HTML ESCAPE
+========================================================= */
+
+function escapeHtml(value){
+
+  if(
+    value === undefined ||
+    value === null
+  ){
+    return "";
+  }
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* =========================================================
+   START
+========================================================= */
+
+loadProviders();
+
+</script>
+
+</body>
+</html>

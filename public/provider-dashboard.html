@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>Provider Dashboard - HPFAF-2026</title>
+
+<style>
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f4f7fb;
+    color:#222;
+}
+
+header{
+    background:#0b5ed7;
+    color:white;
+    text-align:center;
+    padding:22px;
+}
+
+.container{
+    max-width:900px;
+    margin:25px auto;
+    padding:15px;
+}
+
+.card{
+    background:white;
+    padding:22px;
+    margin-bottom:20px;
+    border-radius:15px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+h2{
+    color:#0b5ed7;
+    margin-bottom:15px;
+}
+
+h3{
+    margin:20px 0 12px;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    margin-top:7px;
+    font-size:15px;
+}
+
+button{
+    width:100%;
+    padding:13px;
+    border:none;
+    border-radius:9px;
+    background:#0b5ed7;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    margin-top:15px;
+    cursor:pointer;
+}
+
+button:hover{
+    opacity:.9;
+}
+
+.save{
+    background:#198754;
+}
+
+.info{
+    background:#e7f1ff;
+    color:#084298;
+    padding:15px;
+    border-radius:10px;
+    margin-bottom:18px;
+}
+
+.hospital-info{
+    background:#f8f9fa;
+    padding:15px;
+    border-radius:10px;
+    line-height:1.8;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.blood-row{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-bottom:10px;
+}
+
+.medicine-row{
+    display:grid;
+    grid-template-columns:2fr 1fr 60px;
+    gap:10px;
+    margin-bottom:10px;
+}
+
+.remove{
+    background:#dc3545;
+    margin-top:7px;
+}
+
+.hidden{
+    display:none;
+}
+
+.message{
+    padding:14px;
+    border-radius:9px;
+    margin-top:15px;
+    display:none;
+}
+
+.success{
+    background:#d1e7dd;
+    color:#0f5132;
+}
+
+.error{
+    background:#f8d7da;
+    color:#842029;
+}
+
+label{
+    display:block;
+    font-weight:bold;
+    margin-top:10px;
+}
+
+@media(max-width:650px){
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .medicine-row{
+        grid-template-columns:1fr 1fr 55px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+    <h1>🏥 HPFAF-2026</h1>
+
+    <p>Hospital Provider Dashboard</p>
+
+</header>
+
+
+<div class="container">
+
+
+<!-- PROVIDER ID -->
+
+<div class="card">
+
+    <h2>🔐 Provider Login</h2>
+
+    <div class="info">
+
+        Sirf apna automatically generated
+        <b>Provider ID</b> enter karein.
+
+        <br><br>
+
+        Aapke hospital ka pehle se saved
+        data automatically load hoga.
+
+    </div>
+
+
+    <label>Provider ID</label>
+
+    <input
+        id="providerId"
+        type="number"
+        placeholder="Enter Provider ID"
+    >
+
+
+    <button onclick="loadProfile()">
+        Load Hospital Profile
+    </button>
+
+
+    <div
+        id="loadMessage"
+        class="message">
+    </div>
+
+</div>
+
+
+
+<!-- PROFILE -->
+
+<div
+    id="profileCard"
+    class="card hidden"
+>
+
+    <h2>🏥 Hospital Profile</h2>
+
+
+    <div
+        id="hospitalInfo"
+        class="hospital-info">
+    </div>
+
+
+
+    <!-- BEDS -->
+
+    <h3>🛏️ Bed Availability</h3>
+
+    <div class="grid">
+
+        <div>
+
+            <label>
+                General Beds
+            </label>
+
+            <input
+                id="generalBeds"
+                type="number"
+                min="0"
+            >
+
+        </div>
+
+
+        <div>
+
+            <label>
+                ICU Beds
+            </label>
+
+            <input
+                id="icuBeds"
+                type="number"
+                min="0"
+            >
+
+        </div>
+
+    </div>
+
+
+
+    <!-- BLOOD -->
+
+    <h3>🩸 Blood Availability</h3>
+
+    <div id="bloodRows"></div>
+
+
+
+    <!-- MEDICINE -->
+
+    <h3>💊 Medicine Availability</h3>
+
+    <div id="medicineRows"></div>
+
+
+    <button
+        onclick="addMedicine()"
+    >
+        + Add Medicine
+    </button>
+
+
+    <button
+        class="save"
+        onclick="saveChanges()"
+    >
+        💾 Save Changes
+    </button>
+
+
+    <div
+        id="saveMessage"
+        class="message">
+    </div>
+
+</div>
+
+
+</div>
+
+
+
+<script>
+
+const bloodGroups = [
+    "A+",
+    "A-",
+    "B+",
+    "B-",
+    "AB+",
+    "AB-",
+    "O+",
+    "O-"
+];
+
+
+let currentProvider = null;
+
+
+/* =========================
+   LOAD PROFILE
+========================= */
+
+async function loadProfile(){
+
+    hideMessages();
+
+    const providerId =
+        document.getElementById(
+            "providerId"
+        ).value.trim();
+
+
+    if(!providerId){
+
+        showLoadError(
+            "Provider ID enter karein."
+        );
+
+        return;
+    }
+
+
+    try{
+
+        const response =
+            await fetch(
+                `/api/provider/${providerId}`
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if(!response.ok){
+
+            showLoadError(
+                data.message ||
+                "Provider not found."
+            );
+
+            return;
+        }
+
+
+        currentProvider =
+            data.provider;
+
+
+        await loadAllData(providerId);
+
+
+        document
+            .getElementById("profileCard")
+            .classList.remove("hidden");
+
+
+    }catch(error){
+
+        console.error(error);
+
+        showLoadError(
+            "Server se connection nahi ho pa raha."
+        );
+
+    }
+
+}
+
+
+
+/* =========================
+   LOAD ALL DATA
+========================= */
+
+async function loadAllData(providerId){
+
+    const bedsResponse =
+        await fetch(
+            `/api/beds?providerId=${providerId}`
+        );
+
+    const bedsData =
+        await bedsResponse.json();
+
+
+    const bloodResponse =
+        await fetch(
+            `/api/blood?providerId=${providerId}`
+        );
+
+    const bloodData =
+        await bloodResponse.json();
+
+
+    const medicineResponse =
+        await fetch(
+            `/api/medicine?providerId=${providerId}`
+        );
+
+    const medicineData =
+        await medicineResponse.json();
+
+
+
+    /* HOSPITAL */
+
+    document.getElementById(
+        "hospitalInfo"
+    ).innerHTML = `
+
+        <b>Hospital:</b>
+        ${escapeHtml(
+            currentProvider.hospital_name ||
+            currentProvider.hospitalName ||
+            ""
+        )}
+
+        <br>
+
+        <b>City:</b>
+        ${escapeHtml(
+            currentProvider.city || ""
+        )}
+
+        <br>
+
+        <b>Contact:</b>
+        ${escapeHtml(
+            currentProvider.phone || ""
+        )}
+
+        <br>
+
+        <b>Address:</b>
+        ${escapeHtml(
+            currentProvider.address || ""
+        )}
+
+    `;
+
+
+
+    /* BEDS */
+
+    const beds =
+        bedsData.beds || [];
+
+    const myBeds =
+        beds.find(
+            item =>
+                Number(
+                    item.provider_id ??
+                    item.providerId
+                ) === Number(providerId)
+        );
+
+
+    document.getElementById(
+        "generalBeds"
+    ).value =
+        myBeds
+        ? Number(
+            myBeds.general_beds ??
+            myBeds.generalBeds ??
+            0
+        )
+        : 0;
+
+
+    document.getElementById(
+        "icuBeds"
+    ).value =
+        myBeds
+        ? Number(
+            myBeds.icu_beds ??
+            myBeds.icuBeds ??
+            0
+        )
+        : 0;
+
+
+
+    /* BLOOD */
+
+    createBloodRows(
+        bloodData.blood || [],
+        providerId
+    );
+
+
+
+    /* MEDICINE */
+
+    createMedicineRows(
+        medicineData.medicines || [],
+        providerId
+    );
+
+}
+
+
+
+/* =========================
+   BLOOD
+========================= */
+
+function createBloodRows(
+    bloodData,
+    providerId
+){
+
+    const container =
+        document.getElementById(
+            "bloodRows"
+        );
+
+    container.innerHTML = "";
+
+
+    bloodGroups.forEach(group => {
+
+        const found =
+            bloodData.find(
+                item =>
+                    String(
+                        item.group_name ??
+                        item.groupName ??
+                        item.blood_group ??
+                        item.bloodGroup ??
+                        ""
+                    ).toUpperCase()
+                    === group
+            );
+
+
+        const units =
+            found
+            ? Number(found.units) || 0
+            : 0;
+
+
+        const row =
+            document.createElement("div");
+
+        row.className =
+            "blood-row";
+
+
+        row.innerHTML = `
+
+            <input
+                value="${group}"
+                readonly
+            >
+
+            <input
+                class="bloodUnits"
+                data-group="${group}"
+                type="number"
+                min="0"
+                value="${units}"
+            >
+
+        `;
+
+
+        container.appendChild(row);
+
+    });
+
+}
+
+
+
+/* =========================
+   MEDICINES
+========================= */
+
+function createMedicineRows(
+    medicines
+){
+
+    const container =
+        document.getElementById(
+            "medicineRows"
+        );
+
+    container.innerHTML = "";
+
+
+    if(!medicines.length){
+
+        addMedicine();
+
+        return;
+    }
+
+
+    medicines.forEach(
+        medicine => {
+
+            addMedicine(
+                medicine.medicine_name ??
+                medicine.medicineName ??
+                medicine.name ??
+                "",
+
+                medicine.quantity ?? 0
+            );
+
+        }
+    );
+
+}
+
+
+function addMedicine(
+    name = "",
+    quantity = 0
+){
+
+    const container =
+        document.getElementById(
+            "medicineRows"
+        );
+
+
+    const row =
+        document.createElement("div");
+
+    row.className =
+        "medicine-row";
+
+
+    row.innerHTML = `
+
+        <input
+            class="medicineName"
+            placeholder="Medicine name"
+            value="${escapeHtml(name)}"
+        >
+
+        <input
+            class="medicineQuantity"
+            type="number"
+            min="0"
+            value="${quantity}"
+            placeholder="Quantity"
+        >
+
+        <button
+            type="button"
+            class="remove"
+            onclick="this.parentElement.remove()"
+        >
+            ×
+        </button>
+
+    `;
+
+
+    container.appendChild(row);
+
+}
+
+
+
+/* =========================
+   SAVE
+========================= */
+
+async function saveChanges(){
+
+    hideMessages();
+
+
+    const providerId =
+        document.getElementById(
+            "providerId"
+        ).value.trim();
+
+
+    if(!providerId){
+
+        showSaveError(
+            "Provider ID missing."
+        );
+
+        return;
+    }
+
+
+    const generalBeds =
+        Math.max(
+            0,
+            Number(
+                document.getElementById(
+                    "generalBeds"
+                ).value
+            ) || 0
+        );
+
+
+    const icuBeds =
+        Math.max(
+            0,
+            Number(
+                document.getElementById(
+                    "icuBeds"
+                ).value
+            ) || 0
+        );
+
+
+
+    /* BLOOD */
+
+    const blood = [];
+
+
+    document
+        .querySelectorAll(".bloodUnits")
+        .forEach(input => {
+
+            blood.push({
+
+                group:
+                    input.dataset.group,
+
+                units:
+                    Math.max(
+                        0,
+                        Number(input.value) || 0
+                    )
+
+            });
+
+        });
+
+
+
+    /* MEDICINES */
+
+    const medicines = [];
+
+
+    document
+        .querySelectorAll(".medicine-row")
+        .forEach(row => {
+
+            const name =
+                row.querySelector(
+                    ".medicineName"
+                ).value.trim();
+
+
+            const quantity =
+                Math.max(
+                    0,
+                    Number(
+                        row.querySelector(
+                            ".medicineQuantity"
+                        ).value
+                    ) || 0
+                );
+
+
+            if(name){
+
+                medicines.push({
+
+                    name,
+                    quantity
+
+                });
+
+            }
+
+        });
+
+
+
+    try{
+
+        const response =
+            await fetch(
+                "/api/provider/profile",
+                {
+                    method:"PUT",
+
+                    headers:{
+                        "Content-Type":
+                            "application/json"
+                    },
+
+                    body:JSON.stringify({
+
+                        providerId,
+
+                        generalBeds,
+
+                        icuBeds,
+
+                        blood,
+
+                        medicines
+
+                    })
+
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if(!response.ok){
+
+            showSaveError(
+                data.message ||
+                "Unable to save changes."
+            );
+
+            return;
+        }
+
+
+        showSaveSuccess(
+            "✅ Availability successfully updated."
+        );
+
+
+        /* Reload saved data */
+
+        await loadAllData(
+            providerId
+        );
+
+
+    }catch(error){
+
+        console.error(error);
+
+        showSaveError(
+            "Server se connection nahi ho pa raha."
+        );
+
+    }
+
+}
+
+
+
+/* =========================
+   MESSAGES
+========================= */
+
+function showLoadError(message){
+
+    const box =
+        document.getElementById(
+            "loadMessage"
+        );
+
+    box.className =
+        "message error";
+
+    box.style.display =
+        "block";
+
+    box.innerText =
+        message;
+
+}
+
+
+function showSaveError(message){
+
+    const box =
+        document.getElementById(
+            "saveMessage"
+        );
+
+    box.className =
+        "message error";
+
+    box.style.display =
+        "block";
+
+    box.innerText =
+        message;
+
+}
+
+
+function showSaveSuccess(message){
+
+    const box =
+        document.getElementById(
+            "saveMessage"
+        );
+
+    box.className =
+        "message success";
+
+    box.style.display =
+        "block";
+
+    box.innerText =
+        message;
+
+}
+
+
+function hideMessages(){
+
+    document.getElementById(
+        "loadMessage"
+    ).style.display = "none";
+
+    document.getElementById(
+        "saveMessage"
+    ).style.display = "none";
+
+}
+
+
+function escapeHtml(value){
+
+    return String(value)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
+}
+
+</script>
+
+</body>
+</html>

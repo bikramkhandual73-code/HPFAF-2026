@@ -1,0 +1,1247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>HPFAF - Government Medical Yojana</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f4f7fb;
+  color:#172033;
+}
+
+header{
+  background:linear-gradient(135deg,#075ed0,#00a6a6);
+  color:#fff;
+  padding:18px;
+  position:sticky;
+  top:0;
+  z-index:100;
+  box-shadow:0 4px 18px rgba(0,0,0,.15);
+}
+
+.header{
+  width:min(1150px,94%);
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:15px;
+}
+
+.logo{
+  font-size:24px;
+  font-weight:900;
+}
+
+.sub{
+  font-size:12px;
+  opacity:.9;
+  margin-top:3px;
+}
+
+.back{
+  background:rgba(255,255,255,.18);
+  color:#fff;
+  padding:10px 14px;
+  border-radius:10px;
+  font-weight:700;
+}
+
+.container{
+  width:min(1150px,94%);
+  margin:25px auto;
+}
+
+.hero{
+  background:linear-gradient(135deg,#075ed0,#00a6a6);
+  color:#fff;
+  padding:28px;
+  border-radius:22px;
+  margin-bottom:22px;
+}
+
+.hero h1{
+  font-size:27px;
+  margin-bottom:8px;
+}
+
+.hero p{
+  line-height:1.5;
+  opacity:.92;
+}
+
+.search-box{
+  background:#fff;
+  padding:18px;
+  border-radius:18px;
+  box-shadow:0 5px 20px rgba(0,0,0,.07);
+  margin-bottom:20px;
+}
+
+.search-row{
+  display:flex;
+  gap:10px;
+}
+
+.search-row input{
+  flex:1;
+  padding:14px;
+  border:1px solid #d9e0ea;
+  border-radius:11px;
+  outline:none;
+}
+
+.search-row button{
+  padding:14px 20px;
+  background:#075ed0;
+  color:#fff;
+  border-radius:11px;
+  font-weight:700;
+}
+
+.filters{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-top:12px;
+}
+
+.filter{
+  padding:9px 13px;
+  border-radius:20px;
+  background:#edf4ff;
+  color:#075ed0;
+  border:0;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.filter.active{
+  background:#075ed0;
+  color:#fff;
+}
+
+.count{
+  margin:18px 0 12px;
+  color:#667085;
+  font-size:14px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:16px;
+}
+
+.card{
+  background:#fff;
+  border-radius:19px;
+  padding:20px;
+  box-shadow:0 5px 20px rgba(0,0,0,.07);
+  transition:.2s;
+}
+
+.card:hover{
+  transform:translateY(-2px);
+  box-shadow:0 9px 25px rgba(0,0,0,.1);
+}
+
+.icon{
+  width:50px;
+  height:50px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:14px;
+  background:#edf4ff;
+  font-size:26px;
+  margin-bottom:13px;
+}
+
+.card h2{
+  font-size:19px;
+  margin-bottom:8px;
+}
+
+.badge{
+  display:inline-block;
+  background:#e5f8ec;
+  color:#15743a;
+  padding:5px 9px;
+  border-radius:8px;
+  font-size:11px;
+  font-weight:700;
+  margin-bottom:10px;
+}
+
+.card p{
+  color:#667085;
+  font-size:14px;
+  line-height:1.55;
+  margin-bottom:8px;
+}
+
+.benefits{
+  margin-top:12px;
+  padding-top:12px;
+  border-top:1px solid #edf0f5;
+}
+
+.benefits strong{
+  display:block;
+  margin-bottom:5px;
+}
+
+.benefits ul{
+  padding-left:18px;
+  color:#475467;
+  font-size:13px;
+  line-height:1.6;
+}
+
+.details-btn{
+  width:100%;
+  margin-top:15px;
+  padding:11px;
+  border-radius:10px;
+  background:#075ed0;
+  color:#fff;
+  font-weight:700;
+}
+
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  z-index:999;
+  padding:20px;
+  align-items:center;
+  justify-content:center;
+}
+
+.modal-box{
+  background:#fff;
+  width:min(600px,100%);
+  max-height:90vh;
+  overflow:auto;
+  border-radius:20px;
+  padding:24px;
+}
+
+.modal-box h2{
+  margin-bottom:12px;
+}
+
+.modal-box p{
+  color:#667085;
+  line-height:1.6;
+  margin-bottom:10px;
+}
+
+.close{
+  width:100%;
+  margin-top:15px;
+  padding:12px;
+  border:0;
+  border-radius:10px;
+  background:#edf1f6;
+  color:#172033;
+  font-weight:700;
+}
+
+.apply{
+  display:block;
+  width:100%;
+  text-align:center;
+  margin-top:15px;
+  padding:12px;
+  border-radius:10px;
+  background:#075ed0;
+  color:#fff;
+  text-decoration:none;
+  font-weight:700;
+}
+
+.note{
+  background:#fff8df;
+  border:1px solid #f0dc8a;
+  padding:15px;
+  border-radius:14px;
+  margin-bottom:20px;
+  color:#725b00;
+  font-size:13px;
+  line-height:1.5;
+}
+
+.no-result{
+  background:#fff;
+  padding:35px;
+  text-align:center;
+  border-radius:18px;
+  color:#667085;
+  grid-column:1/-1;
+}
+
+footer{
+  margin-top:35px;
+  padding:30px;
+  text-align:center;
+  color:#667085;
+  font-size:13px;
+}
+
+@media(max-width:600px){
+  .header{
+    align-items:flex-start;
+  }
+
+  .search-row{
+    flex-direction:column;
+  }
+
+  .hero h1{
+    font-size:23px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header">
+
+    <div>
+      <div class="logo">HPFAF</div>
+      <div class="sub">Government Medical Yojana</div>
+    </div>
+
+    <button class="back" onclick="goBack()">
+      ← Back
+    </button>
+
+  </div>
+</header>
+
+
+<div class="container">
+
+  <div class="hero">
+    <h1>🏥 Government Medical Yojana</h1>
+    <p>
+      Central Government, State Government and healthcare-support
+      schemes in one place.
+    </p>
+  </div>
+
+
+  <div class="note">
+    ⚠️ Scheme eligibility, benefits and application rules can change.
+    Always verify the current details on the official government portal
+    before applying.
+  </div>
+
+
+  <div class="search-box">
+
+    <div class="search-row">
+
+      <input
+        id="search"
+        type="search"
+        placeholder="Search medical scheme..."
+        oninput="renderSchemes()">
+
+      <button onclick="clearSearch()">
+        Clear
+      </button>
+
+    </div>
+
+
+    <div class="filters">
+
+      <button class="filter active"
+              onclick="setCategory('All',this)">
+        All
+      </button>
+
+      <button class="filter"
+              onclick="setCategory('Central',this)">
+        🇮🇳 Central
+      </button>
+
+      <button class="filter"
+              onclick="setCategory('Gujarat',this)">
+        Gujarat
+      </button>
+
+      <button class="filter"
+              onclick="setCategory('Women & Child',this)">
+        Women & Child
+      </button>
+
+      <button class="filter"
+              onclick="setCategory('Disease',this)">
+        Disease
+      </button>
+
+      <button class="filter"
+              onclick="setCategory('Insurance',this)">
+        Insurance
+      </button>
+
+      <button class="filter"
+              onclick="setCategory('Primary Care',this)">
+        Primary Care
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="count" id="count"></div>
+
+  <div id="schemeGrid" class="grid"></div>
+
+</div>
+
+
+<footer>
+  HPFAF - Public Helper<br>
+  Government Medical Yojana Section
+</footer>
+
+
+<div id="modal" class="modal">
+
+  <div class="modal-box">
+
+    <h2 id="modalTitle"></h2>
+
+    <div id="modalContent"></div>
+
+    <a
+      id="officialLink"
+      class="apply"
+      href="#"
+      target="_blank"
+      rel="noopener noreferrer">
+      Official Government Information
+    </a>
+
+    <button class="close" onclick="closeModal()">
+      Close
+    </button>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/*
+========================================================
+HPFAF GOVERNMENT MEDICAL YOJANA
+========================================================
+
+Categories:
+Central
+Gujarat
+Women & Child
+Disease
+Insurance
+Primary Care
+
+========================================================
+*/
+
+const schemes = [
+
+/* ================= CENTRAL ================= */
+
+{
+id:1,
+category:"Central",
+type:"Insurance",
+icon:"🏥",
+name:"Ayushman Bharat - PM-JAY",
+tag:"Health Insurance",
+description:
+"Eligible families receive cashless hospitalization coverage for secondary and tertiary healthcare.",
+benefits:[
+"Up to ₹5 lakh health cover per family per year for eligible beneficiaries",
+"Cashless treatment at empanelled hospitals",
+"Secondary and tertiary hospitalization",
+"Pre-existing diseases covered from day one under the scheme"
+],
+eligibility:
+"Eligibility depends on the applicable beneficiary database and current government rules. PM-JAY has also been expanded to cover senior citizens aged 70 years and above irrespective of socio-economic status.",
+official:
+"https://www.myscheme.gov.in/hi/schemes/ab-pmjay"
+},
+
+{
+id:2,
+category:"Central",
+type:"Primary Care",
+icon:"🏠",
+name:"Ayushman Arogya Mandir",
+tag:"Primary Healthcare",
+description:
+"Comprehensive primary healthcare services delivered closer to communities.",
+benefits:[
+"Primary healthcare services",
+"Maternal and child healthcare",
+"Non-communicable disease services",
+"Essential medicines",
+"Diagnostic services",
+"First-level emergency and trauma care"
+],
+eligibility:
+"Services are designed for the population served by the respective public health facility.",
+official:
+"https://aam.mohfw.gov.in/"
+},
+
+{
+id:3,
+category:"Central",
+type:"Insurance",
+icon:"👴",
+name:"AB PM-JAY for Senior Citizens 70+",
+tag:"Senior Citizen",
+description:
+"Health coverage under AB PM-JAY has been expanded to senior citizens aged 70 years and above.",
+benefits:[
+"Health cover under PM-JAY",
+"Hospitalization support",
+"Cashless treatment at eligible empanelled hospitals"
+],
+eligibility:
+"Senior citizens aged 70 years and above, subject to the current scheme rules.",
+official:
+"https://www.myscheme.gov.in/hi/schemes/ab-pmjay"
+},
+
+{
+id:4,
+category:"Central",
+type:"Disease",
+icon:"🫁",
+name:"National Tuberculosis Elimination Programme",
+tag:"TB",
+description:
+"National programme for prevention, diagnosis, treatment and support for tuberculosis.",
+benefits:[
+"TB testing and diagnosis",
+"TB treatment",
+"Treatment monitoring",
+"Public health support"
+],
+eligibility:
+"TB services are provided through the public health system according to programme guidelines.",
+official:
+"https://tbcindia.mohfw.gov.in/"
+},
+
+{
+id:5,
+category:"Central",
+type:"Disease",
+icon:"🦠",
+name:"National Programme for Prevention and Control of Cancer, Diabetes, Cardiovascular Diseases and Stroke",
+tag:"NCD",
+description:
+"Government programme supporting screening, prevention and management of major non-communicable diseases.",
+benefits:[
+"Screening",
+"Early detection",
+"Prevention",
+"Management and referral",
+"Public healthcare support"
+],
+eligibility:
+"Services are delivered through designated public health facilities according to programme guidelines.",
+official:
+"https://mohfw.gov.in/"
+},
+
+{
+id:6,
+category:"Central",
+type:"Women & Child",
+icon:"🤰",
+name:"Janani Suraksha Yojana",
+tag:"Maternal Health",
+description:
+"Government maternal-health intervention supporting institutional delivery among eligible women.",
+benefits:[
+"Support for eligible pregnant women",
+"Institutional delivery promotion",
+"Maternal and newborn health support"
+],
+eligibility:
+"Eligibility and assistance depend on state/category and current programme rules.",
+official:
+"https://www.myscheme.gov.in/"
+},
+
+{
+id:7,
+category:"Central",
+type:"Women & Child",
+icon:"👶",
+name:"Janani Shishu Suraksha Karyakram",
+tag:"Mother & Child",
+description:
+"Public health initiative providing free and cashless services for eligible pregnant women and sick newborns/infants at public health institutions.",
+benefits:[
+"Free delivery services in eligible public facilities",
+"Free medicines and consumables",
+"Free diagnostics",
+"Free diet during institutional delivery",
+"Transport-related support under programme provisions"
+],
+eligibility:
+"Pregnant women and eligible sick newborns/infants using designated public health facilities.",
+official:
+"https://nhm.gov.in/"
+},
+
+{
+id:8,
+category:"Central",
+type:"Women & Child",
+icon:"💉",
+name:"Universal Immunization Programme",
+tag:"Immunization",
+description:
+"Government immunization programme providing vaccines through the public health system.",
+benefits:[
+"Routine childhood immunization",
+"Maternal immunization as applicable",
+"Vaccination through government health facilities"
+],
+eligibility:
+"Eligible children and pregnant women according to the national immunization schedule.",
+official:
+"https://mohfw.gov.in/"
+},
+
+{
+id:9,
+category:"Central",
+type:"Women & Child",
+icon:"👧",
+name:"Rashtriya Bal Swasthya Karyakram",
+tag:"Child Health",
+description:
+"Child health programme focusing on early identification and intervention for health conditions.",
+benefits:[
+"Child health screening",
+"Early identification",
+"Referral",
+"Treatment support through designated systems"
+],
+eligibility:
+"Children covered under the programme's age groups and operational guidelines.",
+official:
+"https://nhm.gov.in/"
+},
+
+{
+id:10,
+category:"Central",
+type:"Disease",
+icon:"🧠",
+name:"National Mental Health Programme",
+tag:"Mental Health",
+description:
+"Government programme supporting mental-health services through the public health system.",
+benefits:[
+"Mental-health services",
+"Awareness",
+"Early identification",
+"Treatment and referral support"
+],
+eligibility:
+"Services depend on the public mental-health facility and programme availability.",
+official:
+"https://mohfw.gov.in/"
+},
+
+{
+id:11,
+category:"Central",
+type:"Disease",
+icon:"👁️",
+name:"National Programme for Control of Blindness and Visual Impairment",
+tag:"Eye Care",
+description:
+"Government programme addressing avoidable blindness and visual impairment.",
+benefits:[
+"Eye screening",
+"Referral",
+"Treatment support",
+"Eye-care services through designated facilities"
+],
+eligibility:
+"Services depend on designated government facilities and programme guidelines.",
+official:
+"https://mohfw.gov.in/"
+},
+
+{
+id:12,
+category:"Central",
+type:"Disease",
+icon:"🦷",
+name:"National Oral Health Programme",
+tag:"Oral Health",
+description:
+"Public health programme supporting prevention and management of oral diseases.",
+benefits:[
+"Oral-health awareness",
+"Screening",
+"Referral",
+"Treatment support through public facilities"
+],
+eligibility:
+"Services depend on participating government health facilities.",
+official:
+"https://mohfw.gov.in/"
+},
+
+{
+id:13,
+category:"Central",
+type:"Disease",
+icon:"🦟",
+name:"National Vector Borne Disease Control Programme",
+tag:"Vector Diseases",
+description:
+"Government public-health programme addressing diseases transmitted by vectors.",
+benefits:[
+"Disease prevention",
+"Surveillance",
+"Diagnosis",
+"Treatment and public-health response"
+],
+eligibility:
+"Services are delivered through designated public health systems.",
+official:
+"https://mohfw.gov.in/"
+},
+
+{
+id:14,
+category:"Central",
+type:"Disease",
+icon:"🧬",
+name:"National Programme for Prevention and Control of Deafness",
+tag:"ENT",
+description:
+"Programme supporting prevention, early identification and management of hearing impairment.",
+benefits:[
+"Hearing screening",
+"Early identification",
+"Referral",
+"Treatment support"
+],
+eligibility:
+"Services depend on participating government facilities.",
+official:
+"https://mohfw.gov.in/"
+},
+
+{
+id:15,
+category:"Central",
+type:"Primary Care",
+icon:"🩺",
+name:"National Health Mission",
+tag:"Public Health",
+description:
+"Major national framework supporting accessible public healthcare and health-system programmes.",
+benefits:[
+"Public healthcare services",
+"Maternal and child health",
+"Disease-control programmes",
+"Primary healthcare strengthening"
+],
+eligibility:
+"Specific benefits depend on the individual programme and state implementation.",
+official:
+"https://nhm.gov.in/"
+},
+
+{
+id:16,
+category:"Central",
+type:"Primary Care",
+icon:"🌿",
+name:"National AYUSH Mission",
+tag:"AYUSH",
+description:
+"Government mission supporting AYUSH healthcare systems and services.",
+benefits:[
+"AYUSH healthcare support",
+"Health promotion",
+"Public AYUSH services",
+"Infrastructure and service development"
+],
+eligibility:
+"Services depend on the available AYUSH facility and applicable programme rules.",
+official:
+"https://main.ayush.gov.in/"
+},
+
+{
+id:17,
+category:"Central",
+type:"Disease",
+icon:"🩸",
+name:"National Programme for Prevention and Control of Sickle Cell Disease",
+tag:"Sickle Cell",
+description:
+"Government initiative focused on screening, awareness and management of sickle-cell disease.",
+benefits:[
+"Screening",
+"Early detection",
+"Counselling",
+"Referral and management support"
+],
+eligibility:
+"Eligibility and services follow programme guidelines and state implementation.",
+official:
+"https://mohfw.gov.in/"
+},
+
+{
+id:18,
+category:"Central",
+type:"Disease",
+icon:"🧒",
+name:"Rashtriya Kishor Swasthya Karyakram",
+tag:"Adolescent Health",
+description:
+"Government adolescent-health programme addressing multiple health needs of adolescents.",
+benefits:[
+"Health information",
+"Counselling",
+"Adolescent health services",
+"Referral support"
+],
+eligibility:
+"Adolescents covered under programme guidelines.",
+official:
+"https://nhm.gov.in/"
+},
+
+{
+id:19,
+category:"Central",
+type:"Primary Care",
+icon:"🏥",
+name:"Pradhan Mantri Ayushman Bharat Health Infrastructure Mission",
+tag:"Health Infrastructure",
+description:
+"Government mission focused on strengthening public-health infrastructure and preparedness.",
+benefits:[
+"Health infrastructure strengthening",
+"Public-health laboratory capacity",
+"Critical healthcare infrastructure",
+"Disease surveillance strengthening"
+],
+eligibility:
+"This is primarily a health-system infrastructure mission rather than an individual insurance scheme.",
+official:
+"https://mohfw.gov.in/"
+},
+
+{
+id:20,
+category:"Central",
+type:"Insurance",
+icon:"🧾",
+name:"Central Government Health Scheme",
+tag:"CGHS",
+description:
+"Healthcare system for eligible central government employees, pensioners and specified beneficiaries.",
+benefits:[
+"Outpatient care",
+"Medicines",
+"Specialist consultation",
+"Hospital services under applicable rules"
+],
+eligibility:
+"Eligibility is restricted to categories covered by CGHS rules.",
+official:
+"https://cghs.mohfw.gov.in/"
+},
+
+/* ================= GUJARAT ================= */
+
+{
+id:21,
+category:"Gujarat",
+type:"Insurance",
+icon:"🏥",
+name:"Mukhyamantri Amrutam Yojana",
+tag:"Gujarat Health",
+description:
+"Gujarat government health scheme for eligible families requiring identified hospitalization, surgery and treatment.",
+benefits:[
+"Health insurance support",
+"Hospitalization",
+"Surgery and treatment",
+"Empanelled healthcare providers"
+],
+eligibility:
+"Eligibility follows Gujarat government scheme rules and beneficiary criteria.",
+official:
+"https://www.myscheme.gov.in/hi/schemes/ma"
+},
+
+{
+id:22,
+category:"Gujarat",
+type:"Insurance",
+icon:"💳",
+name:"Mukhyamantri Amrutam Vatsalya",
+tag:"Gujarat",
+description:
+"Health-care support associated with the Gujarat government health-assurance system for eligible beneficiaries.",
+benefits:[
+"Hospital treatment support",
+"Cashless treatment at applicable empanelled providers",
+"Coverage according to current scheme rules"
+],
+eligibility:
+"Eligibility depends on Gujarat government beneficiary criteria and current rules.",
+official:
+"https://www.myscheme.gov.in/"
+},
+
+{
+id:23,
+category:"Gujarat",
+type:"Primary Care",
+icon:"🏥",
+name:"Gujarat Public Health Services",
+tag:"State Health",
+description:
+"Government health services delivered through public hospitals, primary health centres and other facilities.",
+benefits:[
+"Primary healthcare",
+"Public hospital services",
+"Maternal and child healthcare",
+"Diagnostics and medicines according to facility services"
+],
+eligibility:
+"Services vary according to the government health facility and programme.",
+official:
+"https://gujhealth.gujarat.gov.in/"
+},
+
+{
+id:24,
+category:"Gujarat",
+type:"Women & Child",
+icon:"🤰",
+name:"Gujarat Maternal & Child Health Services",
+tag:"Mother & Child",
+description:
+"State-supported maternal and child healthcare services delivered through the public health system.",
+benefits:[
+"Pregnancy care",
+"Delivery-related services",
+"Newborn care",
+"Child health services"
+],
+eligibility:
+"Specific benefits depend on programme and facility rules.",
+official:
+"https://gujhealth.gujarat.gov.in/"
+},
+
+{
+id:25,
+category:"Gujarat",
+type:"Disease",
+icon:"🩸",
+name:"Gujarat Sickle Cell Services",
+tag:"Sickle Cell",
+description:
+"State-supported screening and healthcare services for sickle-cell disease.",
+benefits:[
+"Screening",
+"Counselling",
+"Diagnosis",
+"Referral and treatment support"
+],
+eligibility:
+"Services depend on applicable state programme guidelines.",
+official:
+"https://gujhealth.gujarat.gov.in/"
+},
+
+{
+id:26,
+category:"Gujarat",
+type:"Primary Care",
+icon:"🩺",
+name:"Gujarat Primary Healthcare Services",
+tag:"Primary Care",
+description:
+"Government primary healthcare services delivered through state health facilities.",
+benefits:[
+"General medical consultation",
+"Preventive healthcare",
+"Basic diagnostics",
+"Medicines according to facility availability",
+"Referral services"
+],
+eligibility:
+"Services depend on the facility and applicable government programme.",
+official:
+"https://gujhealth.gujarat.gov.in/"
+}
+
+];
+
+
+let selectedCategory="All";
+
+
+function setCategory(category,button){
+
+  selectedCategory=category;
+
+  document.querySelectorAll(".filter")
+    .forEach(x=>x.classList.remove("active"));
+
+  button.classList.add("active");
+
+  renderSchemes();
+}
+
+
+function renderSchemes(){
+
+  const query=
+    document.getElementById("search")
+      .value
+      .trim()
+      .toLowerCase();
+
+  let filtered=schemes.filter(s=>{
+
+    const categoryMatch=
+      selectedCategory==="All" ||
+      s.category===selectedCategory ||
+      (selectedCategory==="Insurance" && s.type==="Insurance") ||
+      (selectedCategory==="Disease" && s.type==="Disease") ||
+      (selectedCategory==="Primary Care" && s.type==="Primary Care") ||
+      (selectedCategory==="Women & Child" && s.type==="Women & Child");
+
+    const searchMatch=
+      !query ||
+      s.name.toLowerCase().includes(query) ||
+      s.description.toLowerCase().includes(query) ||
+      s.category.toLowerCase().includes(query) ||
+      s.type.toLowerCase().includes(query) ||
+      s.tag.toLowerCase().includes(query);
+
+    return categoryMatch && searchMatch;
+  });
+
+
+  document.getElementById("count").textContent=
+    filtered.length+" scheme(s) found";
+
+
+  const grid=document.getElementById("schemeGrid");
+
+
+  if(!filtered.length){
+
+    grid.innerHTML=`
+      <div class="no-result">
+        <h3>No scheme found</h3>
+        <p style="margin-top:8px">
+          Try another search or category.
+        </p>
+      </div>
+    `;
+
+    return;
+  }
+
+
+  grid.innerHTML=filtered.map(s=>`
+
+    <div class="card">
+
+      <div class="icon">
+        ${s.icon}
+      </div>
+
+      <span class="badge">
+        ${escapeHTML(s.tag)}
+      </span>
+
+      <h2>
+        ${escapeHTML(s.name)}
+      </h2>
+
+      <p>
+        ${escapeHTML(s.description)}
+      </p>
+
+      <div class="benefits">
+
+        <strong>मुख्य लाभ</strong>
+
+        <ul>
+          ${s.benefits.slice(0,3).map(b=>
+            `<li>${escapeHTML(b)}</li>`
+          ).join("")}
+        </ul>
+
+      </div>
+
+      <button
+        class="details-btn"
+        onclick="showDetails(${s.id})">
+        View Details
+      </button>
+
+    </div>
+
+  `).join("");
+}
+
+
+function showDetails(id){
+
+  const s=schemes.find(x=>x.id===id);
+
+  if(!s)return;
+
+
+  document.getElementById("modalTitle").textContent=
+    s.icon+" "+s.name;
+
+
+  document.getElementById("modalContent").innerHTML=`
+
+    <span class="badge">
+      ${escapeHTML(s.category)} • ${escapeHTML(s.type)}
+    </span>
+
+    <p>
+      ${escapeHTML(s.description)}
+    </p>
+
+    <h3 style="margin:15px 0 8px">
+      मुख्य लाभ
+    </h3>
+
+    <ul style="padding-left:20px;line-height:1.7;color:#475467">
+      ${s.benefits.map(b=>
+        `<li>${escapeHTML(b)}</li>`
+      ).join("")}
+    </ul>
+
+    <h3 style="margin:15px 0 8px">
+      पात्रता
+    </h3>
+
+    <p>
+      ${escapeHTML(s.eligibility)}
+    </p>
+
+  `;
+
+
+  document.getElementById("officialLink").href=
+    s.official;
+
+
+  document.getElementById("modal").style.display="flex";
+}
+
+
+function closeModal(){
+  document.getElementById("modal").style.display="none";
+}
+
+
+function clearSearch(){
+
+  document.getElementById("search").value="";
+
+  selectedCategory="All";
+
+  document.querySelectorAll(".filter")
+    .forEach(x=>x.classList.remove("active"));
+
+  document.querySelector(".filter")
+    .classList.add("active");
+
+  renderSchemes();
+}
+
+
+function goBack(){
+
+  if(window.history.length>1){
+    history.back();
+  }else{
+    window.location.href="../index.html";
+  }
+}
+
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+
+document.getElementById("modal")
+  .addEventListener("click",function(e){
+
+    if(e.target===this){
+      closeModal();
+    }
+
+  });
+
+
+renderSchemes();
+
+</script>
+
+</body>
+</html>
+```0

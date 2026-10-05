@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>HPFAF - Patient Experience</title>
+
+<style>
+
+*{
+  box-sizing:border-box;
+}
+
+body{
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f4f7fb;
+  color:#172033;
+}
+
+button,
+input,
+select,
+textarea{
+  font:inherit;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+  border-radius:12px;
+  padding:13px 17px;
+  font-weight:bold;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  padding:13px;
+  margin-top:7px;
+  margin-bottom:15px;
+  border:1px solid #d0d5dd;
+  border-radius:10px;
+  outline:none;
+  background:white;
+}
+
+textarea{
+  min-height:120px;
+  resize:vertical;
+}
+
+.header{
+  background:linear-gradient(135deg,#0757d5,#00a8ff);
+  color:white;
+  padding:18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.header h2{
+  margin:0;
+}
+
+.header-buttons{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.header-buttons button{
+  background:#ffffff22;
+  color:white;
+  border:1px solid #ffffff55;
+}
+
+.container{
+  width:100%;
+  max-width:1050px;
+  margin:auto;
+  padding:20px;
+}
+
+.hero,
+.card{
+  background:white;
+  border-radius:18px;
+  padding:22px;
+  box-shadow:0 5px 20px #0000000d;
+  margin-bottom:18px;
+}
+
+.hero h1,
+.hero h2{
+  margin-top:0;
+}
+
+.section-title{
+  margin:28px 0 15px;
+}
+
+.primary{
+  background:#0757d5;
+  color:white;
+  width:100%;
+}
+
+.secondary{
+  background:#eef4ff;
+  color:#0757d5;
+  width:100%;
+}
+
+.back{
+  background:#eef4ff;
+  color:#0757d5;
+  margin-bottom:18px;
+}
+
+.status{
+  display:inline-block;
+  padding:7px 12px;
+  border-radius:20px;
+  background:#e8f1ff;
+  color:#0757d5;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.success{
+  background:#eafaf0;
+  color:#157347;
+  padding:14px;
+  border-radius:10px;
+  margin-top:12px;
+}
+
+.warning{
+  background:#fff7e6;
+  color:#9a6700;
+  padding:14px;
+  border-radius:10px;
+  margin-top:12px;
+}
+
+.danger{
+  background:#fff0f0;
+  color:#c62828;
+  padding:14px;
+  border-radius:10px;
+  margin-top:12px;
+}
+
+.info{
+  background:#eef6ff;
+  color:#0757d5;
+  padding:14px;
+  border-radius:10px;
+  margin-top:12px;
+}
+
+.money-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+  gap:12px;
+  margin-top:15px;
+}
+
+.money-box{
+  background:#f7f9fc;
+  border-radius:13px;
+  padding:17px;
+}
+
+.money-box span{
+  display:block;
+  color:#667085;
+  font-size:13px;
+  margin-bottom:7px;
+}
+
+.total{
+  color:#0757d5;
+  font-size:26px;
+  font-weight:bold;
+}
+
+.paid{
+  color:#159447;
+  font-size:22px;
+  font-weight:bold;
+}
+
+.remaining{
+  color:#d92d20;
+  font-size:22px;
+  font-weight:bold;
+}
+
+.timeline{
+  margin-top:20px;
+  border-left:3px solid #0757d5;
+  padding-left:22px;
+}
+
+.timeline-item{
+  position:relative;
+  margin-bottom:22px;
+}
+
+.timeline-item::before{
+  content:"";
+  position:absolute;
+  width:13px;
+  height:13px;
+  border-radius:50%;
+  background:#0757d5;
+  left:-30px;
+  top:3px;
+}
+
+.timeline-item h4{
+  margin:0 0 5px;
+}
+
+.timeline-item p{
+  margin:5px 0;
+  color:#475467;
+}
+
+.grievance{
+  border:1px solid #e4e7ec;
+  border-radius:14px;
+  padding:17px;
+  margin-bottom:12px;
+  background:#fff;
+}
+
+.grievance-id{
+  font-weight:bold;
+  color:#0757d5;
+}
+
+.small{
+  color:#667085;
+  font-size:13px;
+}
+
+.hidden{
+  display:none;
+}
+
+footer{
+  text-align:center;
+  padding:30px;
+  color:#667085;
+}
+
+</style>
+</head>
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+  <h2>HPFAF - Patient Experience</h2>
+
+  <div class="header-buttons">
+
+    <button type="button" onclick="goHome()">
+      🏠 Home
+    </button>
+
+    <button type="button" onclick="openProvider()">
+      🏥 Provider
+    </button>
+
+  </div>
+
+</header>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="container">
+
+
+<!-- BACK -->
+
+<button
+type="button"
+class="back"
+onclick="goHome()">
+
+← Back to HPFAF
+
+</button>
+
+
+<!-- ================= INTRO ================= -->
+
+<div class="hero">
+
+  <h1>🧾 Transparent Patient Experience</h1>
+
+  <p>
+    Track your treatment status, costs, payments and grievances
+    from one place.
+  </p>
+
+  <div class="info">
+
+    <b>Patient transparency:</b>
+
+    You can see the recorded treatment status,
+    listed cost, paid amount, remaining amount and
+    grievance status.
+
+  </div>
+
+</div>
+
+
+<!-- ================= PATIENT SEARCH ================= -->
+
+<div class="card">
+
+  <h2>🔍 Track Your Patient Experience</h2>
+
+  <label>
+    Patient ID / Booking ID
+  </label>
+
+  <input
+    id="patientId"
+    placeholder="Example: P1001"
+  >
+
+  <button
+    type="button"
+    class="primary"
+    onclick="trackPatient()">
+
+    Track Patient
+
+  </button>
+
+</div>
+
+
+<!-- ================= PATIENT RESULT ================= -->
+
+<div id="patientResult"></div>
+
+
+<!-- ================= GRIEVANCE ================= -->
+
+<h2 class="section-title">
+  ⚠️ Raise a Grievance
+</h2>
+
+
+<div class="card">
+
+  <h2>Submit Complaint</h2>
+
+  <p class="small">
+    If you have an issue regarding billing, service,
+    delay, payment or another patient-service matter,
+    you can submit a grievance.
+  </p>
+
+
+  <label>
+    Patient ID / Booking ID
+  </label>
+
+  <input
+    id="grievancePatientId"
+    placeholder="Example: P1001"
+  >
+
+
+  <label>
+    Grievance Type
+  </label>
+
+  <select id="grievanceType">
+
+    <option>Billing Issue</option>
+
+    <option>Unexpected Charge</option>
+
+    <option>Payment Issue</option>
+
+    <option>Refund Issue</option>
+
+    <option>Service Delay</option>
+
+    <option>Appointment Issue</option>
+
+    <option>Staff / Service Issue</option>
+
+    <option>Discharge Issue</option>
+
+    <option>Medicine Issue</option>
+
+    <option>Other</option>
+
+  </select>
+
+
+  <label>
+    Description
+  </label>
+
+  <textarea
+    id="grievanceDescription"
+    placeholder="Describe your issue clearly..."
+  ></textarea>
+
+
+  <button
+    type="button"
+    class="primary"
+    onclick="submitGrievance()">
+
+    📨 Submit Grievance
+
+  </button>
+
+
+  <div id="grievanceMessage"></div>
+
+</div>
+
+
+<!-- ================= MY GRIEVANCES ================= -->
+
+<h2 class="section-title">
+  📋 My Grievances
+</h2>
+
+
+<div class="card">
+
+  <input
+    id="grievanceSearch"
+    placeholder="Enter Patient ID to see grievances"
+    oninput="renderGrievances()"
+  >
+
+</div>
+
+
+<div id="grievanceList"></div>
+
+
+<!-- ================= PATIENT RIGHTS ================= -->
+
+<h2 class="section-title">
+  🔎 Transparent Patient Information
+</h2>
+
+
+<div class="card">
+
+  <h3>Patient can see:</h3>
+
+  <p>✓ Patient / Booking ID</p>
+
+  <p>✓ Current treatment status</p>
+
+  <p>✓ Treatment timeline</p>
+
+  <p>✓ Total recorded cost</p>
+
+  <p>✓ Paid amount</p>
+
+  <p>✓ Remaining amount</p>
+
+  <p>✓ Latest provider update</p>
+
+  <p>✓ Grievance / complaint ID</p>
+
+  <p>✓ Grievance status</p>
+
+  <p>✓ Provider response</p>
+
+</div>
+
+
+</main>
+
+
+<footer>
+
+HPFAF - Public Helper<br>
+Transparent Patient Experience
+
+</footer>
+
+
+
+<script>
+
+/* =====================================================
+   PATIENT DATA
+===================================================== */
+
+function getPatients(){
+
+  return JSON.parse(
+    localStorage.getItem("hpfafPatients") || "[]"
+  );
+
+}
+
+
+/* =====================================================
+   SAMPLE DATA
+   Only created if no patient exists.
+===================================================== */
+
+function createSamplePatient(){
+
+  const patients=getPatients();
+
+  if(patients.length>0){
+    return;
+  }
+
+
+  const sample={
+
+    id:"P1001",
+
+    name:"Demo Patient",
+
+    status:"Under Treatment",
+
+    totalCost:25000,
+
+    paid:10000,
+
+    remaining:15000,
+
+    note:"Treatment is currently in progress.",
+
+    updated:new Date().toLocaleString(),
+
+    history:[
+
+      {
+        status:"Registered",
+        note:"Patient registered.",
+        time:new Date().toLocaleString()
+      },
+
+      {
+        status:"Admitted",
+        note:"Patient admitted by provider.",
+        time:new Date().toLocaleString()
+      },
+
+      {
+        status:"Under Treatment",
+        note:"Treatment is currently in progress.",
+        time:new Date().toLocaleString()
+      }
+
+    ]
+
+  };
+
+
+  localStorage.setItem(
+    "hpfafPatients",
+    JSON.stringify([sample])
+  );
+
+}
+
+
+/* =====================================================
+   TRACK PATIENT
+===================================================== */
+
+function trackPatient(){
+
+  const id=
+    document.getElementById("patientId")
+    .value
+    .trim();
+
+
+  const result=
+    document.getElementById("patientResult");
+
+
+  if(!id){
+
+    result.innerHTML=`
+
+      <div class="danger">
+
+        Please enter Patient ID / Booking ID.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  const patients=getPatients();
+
+
+  const patient=patients.find(function(p){
+
+    return p.id.toLowerCase()===id.toLowerCase();
+
+  });
+
+
+  if(!patient){
+
+    result.innerHTML=`
+
+      <div class="danger">
+
+        <b>Patient not found.</b>
+
+        <br><br>
+
+        Please check your Patient ID / Booking ID.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  const total=
+    Number(patient.totalCost || 0);
+
+
+  const paid=
+    Number(patient.paid || 0);
+
+
+  const remaining=
+    Math.max(total-paid,0);
+
+
+  result.innerHTML=`
+
+  <div class="card">
+
+    <h2>
+      👤 ${escapeHTML(patient.name || "Patient")}
+    </h2>
+
+
+    <p>
+
+      Patient ID:
+
+      <b>
+        ${escapeHTML(patient.id)}
+      </b>
+
+    </p>
+
+
+    <p>
+
+      Current Status:
+
+      <span class="status">
+        ${escapeHTML(patient.status || "Updated")}
+      </span>
+
+    </p>
+
+
+    <!-- COST -->
+
+    <h3>
+      💰 Transparent Cost
+    </h3>
+
+
+    <div class="money-grid">
+
+
+      <div class="money-box">
+
+        <span>
+          Total Recorded Cost
+        </span>
+
+        <div class="total">
+
+          ₹${total.toLocaleString("en-IN")}
+
+        </div>
+
+      </div>
+
+
+      <div class="money-box">
+
+        <span>
+          Paid Amount
+        </span>
+
+        <div class="paid">
+
+          ₹${paid.toLocaleString("en-IN")}
+
+        </div>
+
+      </div>
+
+
+      <div class="money-box">
+
+        <span>
+          Remaining Amount
+        </span>
+
+        <div class="remaining">
+
+          ₹${remaining.toLocaleString("en-IN")}
+
+        </div>
+
+      </div>
+
+
+    </div>
+
+
+    <!-- PAYMENT -->
+
+    ${
+      remaining>0
+
+      ?
+
+      `
+
+      <button
+      type="button"
+      class="primary"
+      style="margin-top:15px"
+      onclick="payRemaining(${remaining})">
+
+        💳 Pay Remaining
+        ₹${remaining.toLocaleString("en-IN")}
+
+      </button>
+
+      `
+
+      :
+
+      `
+
+      <div class="success">
+
+        ✓ No remaining amount recorded.
+
+      </div>
+
+      `
+    }
+
+
+    <!-- LATEST UPDATE -->
+
+    <h3>
+      📢 Latest Provider Update
+    </h3>
+
+
+    <div class="info">
+
+      ${escapeHTML(
+        patient.note ||
+        "No additional update."
+      )}
+
+      <br><br>
+
+      <span class="small">
+
+        Updated:
+        ${escapeHTML(
+          patient.updated || "-"
+        )}
+
+      </span>
+
+    </div>
+
+
+    <!-- TIMELINE -->
+
+    <h3>
+      🕐 Treatment Timeline
+    </h3>
+
+
+    <div class="timeline">
+
+      ${
+        (patient.history || []).map(function(h){
+
+          return `
+
+          <div class="timeline-item">
+
+            <h4>
+              ${escapeHTML(
+                h.status || "Update"
+              )}
+            </h4>
+
+            <p>
+              ${escapeHTML(
+                h.note || ""
+              )}
+            </p>
+
+            <small>
+              ${escapeHTML(
+                h.time || ""
+              )}
+            </small>
+
+          </div>
+
+          `;
+
+        }).join("")
+      }
+
+    </div>
+
+
+  </div>
+
+  `;
+
+
+  document.getElementById(
+    "grievancePatientId"
+  ).value=patient.id;
+
+
+  document.getElementById(
+    "grievanceSearch"
+  ).value=patient.id;
+
+
+  renderGrievances();
+
+}
+
+
+/* =====================================================
+   GRIEVANCE STORAGE
+===================================================== */
+
+function getGrievances(){
+
+  return JSON.parse(
+    localStorage.getItem("hpfafGrievances") || "[]"
+  );
+
+}
+
+
+function saveGrievances(data){
+
+  localStorage.setItem(
+    "hpfafGrievances",
+    JSON.stringify(data)
+  );
+
+}
+
+
+/* =====================================================
+   SUBMIT GRIEVANCE
+===================================================== */
+
+function submitGrievance(){
+
+  const patientId=
+    document.getElementById(
+      "grievancePatientId"
+    ).value.trim();
+
+
+  const type=
+    document.getElementById(
+      "grievanceType"
+    ).value;
+
+
+  const description=
+    document.getElementById(
+      "grievanceDescription"
+    ).value.trim();
+
+
+  const message=
+    document.getElementById(
+      "grievanceMessage"
+    );
+
+
+  if(!patientId){
+
+    message.innerHTML=`
+
+      <div class="danger">
+
+        Please enter Patient ID / Booking ID.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  if(!description){
+
+    message.innerHTML=`
+
+      <div class="danger">
+
+        Please describe your grievance.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  const grievances=getGrievances();
+
+
+  const complaintId=
+    "GRV-"+Date.now();
+
+
+  const grievance={
+
+    id:complaintId,
+
+    patientId:patientId,
+
+    type:type,
+
+    description:description,
+
+    status:"Submitted",
+
+    response:"",
+
+    created:new Date().toLocaleString(),
+
+    updated:new Date().toLocaleString()
+
+  };
+
+
+  grievances.push(grievance);
+
+
+  saveGrievances(grievances);
+
+
+  message.innerHTML=`
+
+    <div class="success">
+
+      <b>✓ Grievance submitted successfully.</b>
+
+      <br><br>
+
+      Your Complaint ID is:
+
+      <b>${complaintId}</b>
+
+      <br><br>
+
+      Keep this ID for future tracking.
+
+    </div>
+
+  `;
+
+
+  document.getElementById(
+    "grievanceDescription"
+  ).value="";
+
+
+  document.getElementById(
+    "grievanceSearch"
+  ).value=patientId;
+
+
+  renderGrievances();
+
+}
+
+
+/* =====================================================
+   RENDER GRIEVANCES
+===================================================== */
+
+function renderGrievances(){
+
+  const box=
+    document.getElementById(
+      "grievanceList"
+    );
+
+
+  if(!box){
+    return;
+  }
+
+
+  const search=
+    document.getElementById(
+      "grievanceSearch"
+    )?.value
+    .trim()
+    .toLowerCase() || "";
+
+
+  let grievances=getGrievances();
+
+
+  if(search){
+
+    grievances=grievances.filter(function(g){
+
+      return g.patientId
+        .toLowerCase()
+        .includes(search);
+
+    });
+
+  }
+
+
+  if(!grievances.length){
+
+    box.innerHTML=`
+
+      <div class="card">
+
+        <p>
+          No grievances found.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  box.innerHTML=
+
+    grievances.map(function(g){
+
+      let statusClass="info";
+
+
+      if(g.status==="Resolved"){
+
+        statusClass="success";
+
+      }
+
+      else if(g.status==="Under Review"){
+
+        statusClass="warning";
+
+      }
+
+
+      return `
+
+      <div class="grievance">
+
+        <div class="grievance-id">
+
+          Complaint ID:
+          ${escapeHTML(g.id)}
+
+        </div>
+
+
+        <p>
+
+          Patient ID:
+          <b>
+            ${escapeHTML(g.patientId)}
+          </b>
+
+        </p>
+
+
+        <p>
+
+          Type:
+          <b>
+            ${escapeHTML(g.type)}
+          </b>
+
+        </p>
+
+
+        <p>
+
+          <b>Complaint:</b>
+
+          <br>
+
+          ${escapeHTML(g.description)}
+
+        </p>
+
+
+        <div class="${statusClass}">
+
+          Status:
+          <b>
+            ${escapeHTML(g.status)}
+          </b>
+
+        </div>
+
+
+        ${
+          g.response
+
+          ?
+
+          `
+
+          <div class="success">
+
+            <b>Provider / Admin Response:</b>
+
+            <br><br>
+
+            ${escapeHTML(g.response)}
+
+            <br><br>
+
+            <span class="small">
+
+              Updated:
+              ${escapeHTML(
+                g.updated || "-"
+              )}
+
+            </span>
+
+          </div>
+
+          `
+
+          :
+
+          ""
+
+        }
+
+
+        <p class="small">
+
+          Submitted:
+          ${escapeHTML(g.created)}
+
+        </p>
+
+
+      </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+/* =====================================================
+   PAYMENT
+===================================================== */
+
+function payRemaining(amount){
+
+  alert(
+
+    "Payment Gateway\n\n"+
+
+    "Amount: ₹"+
+    Number(amount).toLocaleString("en-IN")+
+
+    "\n\nReal online payment gateway will be connected through backend."
+
+  );
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(value){
+
+  const div=document.createElement("div");
+
+  div.textContent=
+    value===undefined ||
+    value===null
+    ? ""
+    : String(value);
+
+  return div.innerHTML;
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function goHome(){
+
+  window.location.href="index.html";
+
+}
+
+
+function openProvider(){
+
+  alert(
+    "Provider login/dashboard will open here."
+  );
+
+}
+
+
+/* =====================================================
+   INITIALIZE
+===================================================== */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    createSamplePatient();
+
+    renderGrievances();
+
+  }
+);
+
+</script>
+
+</body>
+</html>

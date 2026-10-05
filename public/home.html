@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HPFAF - Public Helper</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#f4f7fb;
+  color:#172033;
+}
+
+header{
+  background:linear-gradient(135deg,#075e54,#008f83);
+  color:white;
+  padding:20px;
+}
+
+.header{
+  max-width:1100px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:25px;
+  font-weight:bold;
+}
+
+.subtitle{
+  font-size:13px;
+  margin-top:5px;
+  opacity:.9;
+}
+
+.lang{
+  background:white;
+  color:#075e54;
+  border:0;
+  padding:9px 12px;
+  border-radius:8px;
+}
+
+.container{
+  max-width:1100px;
+  margin:auto;
+  padding:20px;
+}
+
+.welcome{
+  margin-bottom:20px;
+}
+
+.welcome h1{
+  font-size:28px;
+  margin-bottom:6px;
+}
+
+.welcome p{
+  color:#687386;
+}
+
+.section-title{
+  margin:25px 0 12px;
+  font-size:20px;
+}
+
+.emergency-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.emergency{
+  border:0;
+  border-radius:15px;
+  padding:25px 15px;
+  color:white;
+  cursor:pointer;
+  font-size:18px;
+  font-weight:bold;
+  box-shadow:0 5px 15px #0001;
+}
+
+.emergency span{
+  display:block;
+  font-size:38px;
+  margin-bottom:8px;
+}
+
+.ambulance{background:#e53935;}
+.police{background:#1565c0;}
+.fire{background:#ef6c00;}
+
+.services{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.card{
+  background:white;
+  padding:20px;
+  border-radius:15px;
+  box-shadow:0 4px 15px #0000000d;
+  cursor:pointer;
+  transition:.2s;
+}
+
+.card:hover{
+  transform:translateY(-3px);
+}
+
+.icon{
+  font-size:32px;
+  margin-bottom:10px;
+}
+
+.card h3{
+  margin-bottom:6px;
+}
+
+.card p{
+  color:#687386;
+  font-size:14px;
+}
+
+.nearby{
+  background:white;
+  border-radius:15px;
+  padding:20px;
+  margin-top:20px;
+}
+
+.nearby button{
+  margin-top:12px;
+  padding:12px 18px;
+  border:0;
+  border-radius:8px;
+  background:#075e54;
+  color:white;
+  cursor:pointer;
+}
+
+footer{
+  margin-top:30px;
+  padding:25px;
+  text-align:center;
+  color:#687386;
+  font-size:13px;
+}
+
+@media(max-width:700px){
+  .emergency-grid,
+  .services{
+    grid-template-columns:1fr;
+  }
+
+  .header{
+    align-items:flex-start;
+    gap:10px;
+  }
+
+  .welcome h1{
+    font-size:23px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="header">
+    <div>
+      <div class="logo">🚑 HPFAF</div>
+      <div class="subtitle">Public Helper</div>
+    </div>
+
+    <select class="lang" onchange="changeLanguage(this.value)">
+      <option>English</option>
+      <option>Hindi</option>
+      <option>Gujarati</option>
+      <option>Odia</option>
+    </select>
+  </div>
+</header>
+
+<main class="container">
+
+  <section class="welcome">
+    <h1>How can we help you?</h1>
+    <p>Quick access to emergency and healthcare services.</p>
+  </section>
+
+  <h2 class="section-title">🚨 Quick Emergency Services</h2>
+
+  <div class="emergency-grid">
+
+    <button class="emergency ambulance" onclick="emergency('AMBULANCE')">
+      <span>🚑</span>
+      Ambulance
+    </button>
+
+    <button class="emergency police" onclick="emergency('POLICE')">
+      <span>👮</span>
+      Police
+    </button>
+
+    <button class="emergency fire" onclick="emergency('FIRE')">
+      <span>🚒</span>
+      Fire
+    </button>
+
+  </div>
+
+  <h2 class="section-title">🏥 HPFAF Services</h2>
+
+  <div class="services">
+
+    <div class="card" onclick="openPage('hospital.html')">
+      <div class="icon">🏥</div>
+      <h3>Hospital & Doctor</h3>
+      <p>Find hospitals, clinics and doctors.</p>
+    </div>
+
+    <div class="card" onclick="openPage('health.html')">
+      <div class="icon">🩸</div>
+      <h3>Blood Availability</h3>
+      <p>Check available blood groups.</p>
+    </div>
+
+    <div class="card" onclick="openPage('medicine.html')">
+      <div class="icon">💊</div>
+      <h3>Medicine Availability</h3>
+      <p>Find available medicines.</p>
+    </div>
+
+    <div class="card" onclick="findNearby()">
+      <div class="icon">📍</div>
+      <h3>Nearby Services</h3>
+      <p>Find nearby hospitals and emergency services.</p>
+    </div>
+
+    <div class="card" onclick="openPage('medical-help.html')">
+      <div class="icon">🩺</div>
+      <h3>Medical Help</h3>
+      <p>Get healthcare assistance.</p>
+    </div>
+
+    <div class="card" onclick="openPage('emergency.html')">
+      <div class="icon">🚨</div>
+      <h3>Emergency Help</h3>
+      <p>Get emergency assistance.</p>
+    </div>
+
+  </div>
+
+  <div class="nearby">
+    <h2>📍 Find Services Near You</h2>
+    <p style="margin-top:7px;color:#687386;">
+      Use your location to find nearby HPFAF services.
+    </p>
+
+    <button onclick="findNearby()">Find Nearby</button>
+  </div>
+
+</main>
+
+<footer>
+  HPFAF - Public Helper<br>
+  Emergency assistance platform
+</footer>
+
+<script>
+
+function openPage(page){
+  window.location.href = page;
+}
+
+function emergency(type){
+
+  if(!navigator.geolocation){
+    alert("Location is not supported on this device.");
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+
+    function(position){
+
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+
+      /*
+        Existing HPFAF backend can be connected here:
+
+        fetch('/api/emergency',{
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({
+            type:type,
+            latitude:latitude,
+            longitude:longitude
+          })
+        });
+      */
+
+      alert(
+        type + " emergency selected.\n\n" +
+        "Location captured:\n" +
+        latitude.toFixed(5) + ", " +
+        longitude.toFixed(5)
+      );
+    },
+
+    function(){
+      alert("Please allow location permission for emergency assistance.");
+    }
+  );
+}
+
+function findNearby(){
+
+  if(!navigator.geolocation){
+    alert("Location is not supported.");
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(function(position){
+
+    const lat=position.coords.latitude;
+    const lng=position.coords.longitude;
+
+    alert(
+      "Your location:\n" +
+      lat.toFixed(5)+", "+lng.toFixed(5)
+    );
+
+    /*
+      Later connect to:
+      /api/nearby?lat=...&lng=...
+    */
+
+  },function(){
+    alert("Please allow location permission.");
+  });
+}
+
+function changeLanguage(language){
+  alert("Language selected: "+language);
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Hospital Provider - HPFAF</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      background: #f4f7fb;
+      color: #172033;
+    }
+
+    .header {
+      background: linear-gradient(135deg, #0b57d0, #1648a8);
+      color: white;
+      padding: 22px 18px;
+      text-align: center;
+    }
+
+    .header h1 {
+      margin: 0;
+      font-size: 25px;
+    }
+
+    .header p {
+      margin: 7px 0 0;
+      opacity: .9;
+    }
+
+    .container {
+      width: 94%;
+      max-width: 700px;
+      margin: 20px auto 80px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: bold;
+      color: #1252b8;
+      margin: 25px 0 12px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 4px 15px rgba(0,0,0,.08);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      font-size: 19px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      margin: 13px 0 6px;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ccd5e2;
+      border-radius: 10px;
+      font-size: 15px;
+      outline: none;
+    }
+
+    textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: #1769d1;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .blood-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .blood-box {
+      border: 1px solid #d8e0eb;
+      border-radius: 10px;
+      padding: 10px;
+      background: #f9fbff;
+    }
+
+    .blood-box label {
+      margin: 0 0 5px;
+    }
+
+    button {
+      width: 100%;
+      border: none;
+      padding: 14px;
+      border-radius: 11px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 12px;
+    }
+
+    .primary {
+      background: #0759d1;
+      color: white;
+    }
+
+    .primary:hover {
+      background: #0649ad;
+    }
+
+    .dashboard {
+      background: #075d25;
+      color: white;
+    }
+
+    .admin {
+      background: #d99300;
+      color: white;
+    }
+
+    .home {
+      background: #e8edf5;
+      color: #172033;
+    }
+
+    .success {
+      background: #e9f8ed;
+      border: 1px solid #86d49a;
+      color: #155d25;
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 15px;
+    }
+
+    .success h2 {
+      margin: 0 0 8px;
+    }
+
+    .provider-id {
+      font-size: 25px;
+      font-weight: bold;
+      color: #0759d1;
+      margin: 8px 0;
+    }
+
+    .info {
+      background: #eef5ff;
+      border-left: 4px solid #1769d1;
+      padding: 13px;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+
+    .error {
+      display: none;
+      background: #ffeaea;
+      color: #a00000;
+      border: 1px solid #ffb2b2;
+      padding: 13px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 20px;
+      color: #555;
+    }
+
+    .medicine-row {
+      display: grid;
+      grid-template-columns: 1fr 120px;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .medicine-row button {
+      margin: 0;
+      background: #ffe3e3;
+      color: #a00000;
+    }
+
+    .small-btn {
+      background: #edf3ff;
+      color: #0759d1;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media(max-width: 550px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .medicine-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <h1>🏥 Hospital Provider</h1>
+    <p>HPFAF - Public Helper</p>
+  </div>
+
+  <div class="container">
+
+    <!-- ================= REGISTER SECTION ================= -->
+
+    <div id="registerSection">
+
+      <div class="section-title">
+        🏥 Register Hospital
+      </div>
+
+      <div class="card">
+
+        <div id="errorBox" class="error"></div>
+
+        <h2>Hospital Registration</h2>
+
+        <div class="info">
+          Hospital registration is required only once.
+          After registration, you will receive an automatic Provider ID.
+        </div>
+
+        <label>Hospital Name *</label>
+        <input
+          id="hospitalName"
+          type="text"
+          placeholder="Enter hospital name"
+        >
+
+        <label>City *</label>
+        <input
+          id="city"
+          type="text"
+          placeholder="Enter city"
+        >
+
+        <label>Contact Number *</label>
+        <input
+          id="phone"
+          type="tel"
+          placeholder="Enter contact number"
+        >
+
+        <label>Full Address *</label>
+        <textarea
+          id="address"
+          placeholder="Enter complete hospital address"
+        ></textarea>
+
+      </div>
+
+
+      <!-- BEDS -->
+
+      <div class="card">
+
+        <h2>🛏️ Initial Bed Availability</h2>
+
+        <div class="grid">
+
+          <div>
+            <label>General Beds</label>
+            <input
+              id="generalBeds"
+              type="number"
+              min="0"
+              value="0"
+            >
+          </div>
+
+          <div>
+            <label>ICU Beds</label>
+            <input
+              id="icuBeds"
+              type="number"
+              min="0"
+              value="0"
+            >
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- BLOOD -->
+
+      <div class="card">
+
+        <h2>🩸 Initial Blood Availability</h2>
+
+        <div class="blood-grid">
+
+          <div class="blood-box">
+            <label>A+</label>
+            <input id="blood_A_POS" type="number" min="0" value="0">
+          </div>
+
+          <div class="blood-box">
+            <label>A-</label>
+            <input id="blood_A_NEG" type="number" min="0" value="0">
+          </div>
+
+          <div class="blood-box">
+            <label>B+</label>
+            <input id="blood_B_POS" type="number" min="0" value="0">
+          </div>
+
+          <div class="blood-box">
+            <label>B-</label>
+            <input id="blood_B_NEG" type="number" min="0" value="0">
+          </div>
+
+          <div class="blood-box">
+            <label>AB+</label>
+            <input id="blood_AB_POS" type="number" min="0" value="0">
+          </div>
+
+          <div class="blood-box">
+            <label>AB-</label>
+            <input id="blood_AB_NEG" type="number" min="0" value="0">
+          </div>
+
+          <div class="blood-box">
+            <label>O+</label>
+            <input id="blood_O_POS" type="number" min="0" value="0">
+          </div>
+
+          <div class="blood-box">
+            <label>O-</label>
+            <input id="blood_O_NEG" type="number" min="0" value="0">
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- MEDICINES -->
+
+      <div class="card">
+
+        <h2>💊 Initial Medicine Availability</h2>
+
+        <div id="medicineList"></div>
+
+        <button
+          type="button"
+          class="small-btn"
+          onclick="addMedicine()"
+        >
+          + Add Medicine
+        </button>
+
+      </div>
+
+
+      <button
+        id="registerBtn"
+        class="primary"
+        onclick="registerHospital()"
+      >
+        🏥 Register Hospital
+      </button>
+
+    </div>
+
+
+    <!-- ================= PROVIDER SECTION ================= -->
+
+    <div id="providerSection" class="hidden">
+
+      <div class="section-title">
+        🏥 Hospital Provider
+      </div>
+
+      <div class="success">
+
+        <h2>✅ Hospital Already Registered</h2>
+
+        <div id="savedHospitalName">
+          Hospital
+        </div>
+
+        <p>Provider ID:</p>
+
+        <div
+          id="savedProviderId"
+          class="provider-id"
+        >
+          -
+        </div>
+
+      </div>
+
+      <button
+        class="dashboard"
+        onclick="openDashboard()"
+      >
+        📊 Provider Dashboard
+      </button>
+
+      <div class="card">
+
+        <h2>Provider System</h2>
+
+        <p>
+          Hospital registration is required only once.
+          After registration, use Provider Dashboard to update
+          beds, ICU, blood and medicine availability.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- ================= ADMIN ================= -->
+
+    <div class="section-title">
+      🔐 Admin
+    </div>
+
+    <div class="card">
+
+      <h2>Admin Verification System</h2>
+
+      <p>
+        New hospital registrations are first sent to the Admin Panel.
+        Only approved hospitals are visible publicly.
+      </p>
+
+      <button
+        class="admin"
+        onclick="openAdmin()"
+      >
+        🛡️ Admin Panel
+      </button>
+
+    </div>
+
+
+    <button
+      class="home"
+      onclick="window.location.href='index.html'"
+    >
+      🏠 Home
+    </button>
+
+  </div>
+
+
+<script>
+
+const STORAGE_KEY = "hpfaf_registered_provider";
+let providerCheckTimer = null;
+
+
+/* =====================================================
+   BASIC
+===================================================== */
+
+function getSavedProvider() {
+
+  try {
+
+    const data =
+      localStorage.getItem(STORAGE_KEY);
+
+    if (!data) return null;
+
+    return JSON.parse(data);
+
+  } catch (error) {
+
+    localStorage.removeItem(STORAGE_KEY);
+
+    return null;
+  }
+}
+
+
+function showError(message) {
+
+  const box =
+    document.getElementById("errorBox");
+
+  box.textContent = message;
+  box.style.display = "block";
+}
+
+
+function hideError() {
+
+  const box =
+    document.getElementById("errorBox");
+
+  box.textContent = "";
+  box.style.display = "none";
+}
+
+
+function clean(value) {
+
+  return String(value || "").trim();
+
+}
+
+
+function numberValue(id) {
+
+  const value =
+    Number(document.getElementById(id).value);
+
+  if (!Number.isFinite(value) || value < 0) {
+    return 0;
+  }
+
+  return value;
+}
+
+
+/* =====================================================
+   SHOW REGISTER
+===================================================== */
+
+function showRegister() {
+
+  document.getElementById(
+    "registerSection"
+  ).style.display = "block";
+
+  document.getElementById(
+    "providerSection"
+  ).style.display = "none";
+
+  hideError();
+
+  startProviderWatcher(false);
+}
+
+
+/* =====================================================
+   SHOW PROVIDER
+===================================================== */
+
+function showProvider(provider) {
+
+  document.getElementById(
+    "registerSection"
+  ).style.display = "none";
+
+  document.getElementById(
+    "providerSection"
+  ).style.display = "block";
+
+
+  document.getElementById(
+    "savedHospitalName"
+  ).textContent =
+    provider.hospitalName ||
+    provider.hospital_name ||
+    "Hospital";
+
+
+  document.getElementById(
+    "savedProviderId"
+  ).textContent =
+    provider.id ||
+    provider.providerId ||
+    "-";
+
+
+  startProviderWatcher(true);
+}
+
+
+/* =====================================================
+   CLEAR SAVED PROVIDER
+===================================================== */
+
+function clearSavedProvider() {
+
+  localStorage.removeItem(
+    STORAGE_KEY
+  );
+
+  showRegister();
+}
+
+
+/* =====================================================
+   VERIFY PROVIDER
+===================================================== */
+
+async function verifyProvider() {
+
+  const saved =
+    getSavedProvider();
+
+
+  if (
+    !saved ||
+    !saved.providerId
+  ) {
+
+    showRegister();
+
+    return;
+  }
+
+
+  try {
+
+    const response =
+      await fetch(
+        "/api/provider/" +
+        encodeURIComponent(
+          saved.providerId
+        ) +
+        "?t=" +
+        Date.now(),
+        {
+          method: "GET",
+          cache: "no-store",
+
+          headers: {
+            "Cache-Control": "no-cache"
+          }
+        }
+      );
+
+
+    /*
+      Provider Admin ne delete kar diya
+    */
+
+    if (response.status === 404) {
+
+      console.log(
+        "Provider deleted"
+      );
+
+      clearSavedProvider();
+
+      return;
+    }
+
+
+    if (!response.ok) {
+
+      console.log(
+        "Provider check failed:",
+        response.status
+      );
+
+      return;
+    }
+
+
+    const data =
+      await response.json();
+
+
+    const provider =
+      data.provider || data;
+
+
+    if (
+      !provider ||
+      !provider.id
+    ) {
+
+      clearSavedProvider();
+
+      return;
+    }
+
+
+    /*
+      Same Provider ID kisi naye hospital ko
+      mil gayi ho to old registration clear.
+    */
+
+    const oldName =
+      clean(
+        saved.hospitalName
+      ).toLowerCase();
+
+
+    const newName =
+      clean(
+        provider.hospitalName ||
+        provider.hospital_name
+      ).toLowerCase();
+
+
+    if (
+      oldName &&
+      newName &&
+      oldName !== newName
+    ) {
+
+      clearSavedProvider();
+
+      return;
+    }
+
+
+    /*
+      Save latest provider information
+    */
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({
+
+        providerId:
+          Number(provider.id),
+
+        hospitalName:
+          provider.hospitalName ||
+          provider.hospital_name ||
+          "",
+
+        city:
+          provider.city || "",
+
+        phone:
+          provider.phone || "",
+
+        address:
+          provider.address || ""
+
+      })
+    );
+
+
+    showProvider(provider);
+
+
+  } catch (error) {
+
+    console.error(
+      "Provider verification error:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =====================================================
+   AUTO WATCH
+===================================================== */
+
+function startProviderWatcher(active) {
+
+  if (providerCheckTimer) {
+
+    clearInterval(
+      providerCheckTimer
+    );
+
+    providerCheckTimer = null;
+  }
+
+
+  if (!active) {
+    return;
+  }
+
+
+  providerCheckTimer =
+    setInterval(
+      verifyProvider,
+      5000
+    );
+}
+
+
+/* =====================================================
+   MEDICINE
+===================================================== */
+
+function addMedicine(
+  medicineName = "",
+  quantity = 0
+) {
+
+  const list =
+    document.getElementById(
+      "medicineList"
+    );
+
+
+  const row =
+    document.createElement("div");
+
+  row.className =
+    "medicine-row";
+
+
+  row.innerHTML = `
+
+    <input
+      type="text"
+      class="medicine-name"
+      placeholder="Medicine name"
+      value="${escapeHtml(medicineName)}"
+    >
+
+    <input
+      type="number"
+      class="medicine-quantity"
+      min="0"
+      value="${Number(quantity) || 0}"
+    >
+
+    <button
+      type="button"
+      onclick="this.parentElement.remove()"
+    >
+      Remove
+    </button>
+
+  `;
+
+
+  list.appendChild(row);
+}
+
+
+/* =====================================================
+   REGISTER HOSPITAL
+===================================================== */
+
+async function registerHospital() {
+
+  hideError();
+
+
+  const hospitalName =
+    clean(
+      document.getElementById(
+        "hospitalName"
+      ).value
+    );
+
+
+  const city =
+    clean(
+      document.getElementById(
+        "city"
+      ).value
+    );
+
+
+  const phone =
+    clean(
+      document.getElementById(
+        "phone"
+      ).value
+    );
+
+
+  const address =
+    clean(
+      document.getElementById(
+        "address"
+      ).value
+    );
+
+
+  /* Validation */
+
+  if (!hospitalName) {
+
+    showError(
+      "Please enter Hospital Name."
+    );
+
+    return;
+  }
+
+
+  if (!city) {
+
+    showError(
+      "Please enter City."
+    );
+
+    return;
+  }
+
+
+  if (!phone) {
+
+    showError(
+      "Please enter Contact Number."
+    );
+
+    return;
+  }
+
+
+  if (!address) {
+
+    showError(
+      "Please enter Full Address."
+    );
+
+    return;
+  }
+
+
+  /* Blood */
+
+  const blood = [
+
+    {
+      group_name: "A+",
+      units: numberValue("blood_A_POS")
+    },
+
+    {
+      group_name: "A-",
+      units: numberValue("blood_A_NEG")
+    },
+
+    {
+      group_name: "B+",
+      units: numberValue("blood_B_POS")
+    },
+
+    {
+      group_name: "B-",
+      units: numberValue("blood_B_NEG")
+    },
+
+    {
+      group_name: "AB+",
+      units: numberValue("blood_AB_POS")
+    },
+
+    {
+      group_name: "AB-",
+      units: numberValue("blood_AB_NEG")
+    },
+
+    {
+      group_name: "O+",
+      units: numberValue("blood_O_POS")
+    },
+
+    {
+      group_name: "O-",
+      units: numberValue("blood_O_NEG")
+    }
+
+  ];
+
+
+  /* Medicines */
+
+  const medicines = [];
+
+  document
+    .querySelectorAll(".medicine-row")
+    .forEach(row => {
+
+      const name =
+        clean(
+          row.querySelector(
+            ".medicine-name"
+          ).value
+        );
+
+
+      const quantity =
+        Number(
+          row.querySelector(
+            ".medicine-quantity"
+          ).value
+        ) || 0;
+
+
+      if (name) {
+
+        medicines.push({
+
+          medicine_name: name,
+
+          quantity: quantity
+
+        });
+
+      }
+
+    });
+
+
+  /* Payload */
+
+  const payload = {
+
+    hospitalName: hospitalName,
+
+    city: city,
+
+    phone: phone,
+
+    address: address,
+
+    generalBeds:
+      numberValue("generalBeds"),
+
+    icuBeds:
+      numberValue("icuBeds"),
+
+    blood: blood,
+
+    medicines: medicines
+
+  };
+
+
+  const button =
+    document.getElementById(
+      "registerBtn"
+    );
+
+
+  button.disabled = true;
+
+  button.textContent =
+    "Registering...";
+
+
+  try {
+
+    const response =
+      await fetch(
+        "/api/provider/register",
+        {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body:
+            JSON.stringify(payload)
+        }
+      );
+
+
+    let data = {};
+
+    try {
+
+      data =
+        await response.json();
+
+    } catch (error) {
+
+      data = {};
+
+    }
+
+
+    console.log(
+      "REGISTER RESPONSE:",
+      response.status,
+      data
+    );
+
+
+    /* Duplicate */
+
+    if (response.status === 409) {
+
+      showError(
+        data.message ||
+        "This hospital is already registered."
+      );
+
+      return;
+    }
+
+
+    /* Other server error */
+
+    if (!response.ok) {
+
+      showError(
+        data.message ||
+        "Hospital registration failed."
+      );
+
+      return;
+    }
+
+
+    const provider =
+      data.provider;
+
+
+    if (
+      !provider ||
+      !provider.id
+    ) {
+
+      showError(
+        "Server ne Provider ID return nahi kiya."
+      );
+
+      return;
+    }
+
+
+    /*
+      Save Provider
+    */
+
+    localStorage.setItem(
+      STORAGE_KEY,
+      JSON.stringify({
+
+        providerId:
+          Number(provider.id),
+
+        hospitalName:
+          provider.hospitalName ||
+          provider.hospital_name ||
+          hospitalName,
+
+        city:
+          provider.city ||
+          city,
+
+        phone:
+          provider.phone ||
+          phone,
+
+        address:
+          provider.address ||
+          address
+
+      })
+    );
+
+
+    /*
+      Show provider screen
+    */
+
+    showProvider(provider);
+
+
+    alert(
+      "✅ Hospital registered successfully!\n\n" +
+      "Provider ID: " +
+      provider.id
+    );
+
+
+  } catch (error) {
+
+    console.error(
+      "REGISTRATION ERROR:",
+      error
+    );
+
+
+    showError(
+      "Server se connection nahi ho raha. " +
+      "Please check that server.js running hai."
+    );
+
+
+  } finally {
+
+    button.disabled = false;
+
+    button.textContent =
+      "🏥 Register Hospital";
+
+  }
+
+}
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+function openDashboard() {
+
+  const saved =
+    getSavedProvider();
+
+
+  if (
+    !saved ||
+    !saved.providerId
+  ) {
+
+    showRegister();
+
+    return;
+  }
+
+
+  window.location.href =
+    "provider-dashboard.html";
+}
+
+
+/* =====================================================
+   ADMIN
+===================================================== */
+
+function openAdmin() {
+
+  window.location.href =
+    "admin.html";
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHtml(value) {
+
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+
+}
+
+
+/* =====================================================
+   PAGE LOAD
+===================================================== */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function() {
+
+    /*
+      Agar provider saved hai to server se verify.
+      Delete ho chuka hai to Register Hospital.
+    */
+
+    const saved =
+      getSavedProvider();
+
+
+    if (
+      saved &&
+      saved.providerId
+    ) {
+
+      verifyProvider();
+
+    } else {
+
+      showRegister();
+
+    }
+
+
+    /*
+      Medicine ka initial empty row
+    */
+
+    addMedicine();
+
+  }
+);
+
+</script>
+</body>
+</html>

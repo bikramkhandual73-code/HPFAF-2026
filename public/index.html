@@ -1,0 +1,3597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#0b63ce">
+<title>HPFAF - Public Helper</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f7fb;color:#172033}.hidden{display:none!important}.screen{display:none;min-height:100vh}.screen.active{display:block}.welcome{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:25px;background:linear-gradient(135deg,#063b80,#0b63ce,#13a4ff);color:#fff;text-align:center}.welcomeBox{max-width:480px;width:100%;padding:35px 22px;border-radius:28px;background:rgba(255,255,255,.12);backdrop-filter:blur(12px);box-shadow:0 20px 60px rgba(0,0,0,.25)}.logo{width:90px;height:90px;border-radius:25px;background:#fff;color:#0b63ce;display:grid;place-items:center;font-size:38px;font-weight:900;margin:0 auto 18px}.welcome h1{margin:8px 0;font-size:34px}.welcome p{opacity:.9}.btn{border:0;border-radius:13px;padding:13px 17px;background:#0b63ce;color:#fff;font-weight:700;cursor:pointer;margin:5px}.btn.green{background:#159447}.btn.red{background:#d92d3a}.btn.orange{background:#f59e0b}.btn.gray{background:#64748b}.btn.light{background:#e9f2ff;color:#0b63ce}.welcome .btn{display:block;width:100%;margin:10px 0}.container{max-width:1150px;margin:auto;padding:18px}.top{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid #dde5ef;padding:12px 15px;display:flex;justify-content:space-between;gap:10px;align-items:center}.brand{font-weight:900;color:#0b63ce;font-size:19px}.topBtns{display:flex;flex-wrap:wrap;justify-content:flex-end}.hero{background:linear-gradient(135deg,#0b63ce,#16a0e8);color:#fff;padding:25px;border-radius:22px;margin:18px 0}.hero h2{margin:0 0 8px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}.dangerGrid{grid-template-columns:repeat(3,1fr)}.card{background:#fff;border:1px solid #e1e8f0;border-radius:18px;padding:17px;box-shadow:0 5px 18px rgba(15,40,80,.06)}.card h3{margin:0 0 7px}.card p{color:#5d6878;font-size:14px;line-height:1.45}.icon{font-size:30px}.sectionTitle{margin:24px 0 12px}.dangerGrid .card{border-color:#ffd2d2}.input,select,textarea{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:10px;margin:6px 0 10px;background:#fff}.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px}.status{display:inline-block;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:800}.pending{background:#fff3cd;color:#8a5b00}.approved{background:#d9f8e5;color:#087333}.rejected{background:#ffe0e3;color:#a51c2b}.fresh{background:#d9f8e5;color:#087333}.stale{background:#ffe0e3;color:#a51c2b}.limited{background:#fff3cd;color:#8a5b00}.listItem{border:1px solid #e2e8f0;padding:12px;border-radius:12px;margin:8px 0;background:#fff}.small{font-size:12px;color:#64748b}.price{font-size:20px;font-weight:900;color:#0b63ce}.footer{padding:30px;text-align:center;color:#64748b}.pill{display:inline-block;padding:5px 8px;border-radius:8px;background:#eef5ff;color:#0b63ce;font-size:12px;margin:2px}.emergency{background:#fff0f0;border:1px solid #ffcaca}.danger{background:#d92d3a!important}.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:650px){.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.grid .card{padding:12px}.dangerGrid{grid-template-columns:repeat(3,minmax(0,1fr))}.two{grid-template-columns:1fr}.top{align-items:flex-start;flex-direction:column}.topBtns{justify-content:flex-start}.welcome h1{font-size:28px}.card h3{font-size:15px}.card p{font-size:12px}.btn{font-size:12px;padding:10px 9px}}
+</style>
+</head>
+<body>
+
+<div id="welcomeScreen" class="welcome">
+ <div class="welcomeBox">
+  <div class="logo">H</div>
+  <h1>HPFAF</h1>
+  <h3>Public Helper</h3>
+  <p>Healthcare • Emergency • Providers • Patient Support</p>
+  <button class="btn" onclick="openApp()">Continue</button>
+  <button class="btn green" onclick="openProviderRegistration()">🏥 Register Provider</button>
+  <p class="small" style="color:#dbeafe">Hospital & Clinic providers use the same provider section.</p>
+ </div>
+</div>
+
+<div id="app" class="hidden">
+
+<section id="publicScreen" class="screen active">
+ <header class="top">
+  <div class="brand">HPFAF – Public Helper</div>
+  <div class="topBtns">
+   <button class="btn light" onclick="showScreen('providerScreen');loadProviderHome()">Provider</button>
+   <button class="btn light" onclick="showScreen('founderScreen');loadFounder()">Founder</button>
+  </div>
+ </header>
+
+ <main class="container">
+  <div class="hero">
+   <h2>How can we help?</h2>
+   <p>Find verified healthcare providers, request services, track treatment and access patient tools.</p>
+  </div>
+
+<h2 class="sectionTitle">🚨 Emergency</h2>
+
+<div class="grid dangerGrid">
+
+  <div class="card emergency">
+    <div class="icon">🚑</div>
+    <h3>Ambulance / Medical</h3>
+    <button class="btn red" onclick="emergencyCall('108')">
+      🚑 Ambulance / Medical
+    </button>
+  </div>
+
+  <div class="card emergency">
+    <div class="icon">👮</div>
+    <h3>Police</h3>
+    <button class="btn red" onclick="emergencyCall('112')">
+      🚨 Police
+    </button>
+  </div>
+
+  <div class="card emergency">
+    <div class="icon">🚒</div>
+    <h3>Fire</h3>
+    <button class="btn red" onclick="emergencyCall('101')">
+      🚒 Fire
+    </button>
+  </div>
+
+</div>
+
+    <h2 class="sectionTitle">⚡ Quick Services</h2>
+  <div class="grid">
+   <div class="card">
+    <div class="icon">🏥</div>
+    <h3>Hospital & Clinic</h3>
+    <p>View verified providers.</p>
+    <button class="btn" onclick="showScreen('publicProvidersScreen');renderPublicProviders()">View Providers</button>
+   </div>
+
+   <div class="card">
+    <div class="icon">🛏️</div>
+    <h3>Live Bed Tracker</h3>
+    <button class="btn" onclick="showScreen('bedScreen');renderBeds()">Find Beds</button>
+   </div>
+
+   <div class="card">
+    <div class="icon">💊</div>
+    <h3>Medicine</h3>
+    <p>Find brand alternatives by generic, strength and form.</p>
+    <button class="btn" onclick="showScreen('medicineScreen')">Medicine Finder</button>
+   </div>
+
+   <div class="card">
+    <div class="icon">🩸</div>
+    <h3>Blood</h3>
+    <button class="btn" onclick="showScreen('publicProvidersScreen');renderPublicProviders()">Find Provider</button>
+   </div>
+
+   <div class="card">
+    <div class="icon">👨‍⚕️</div>
+    <h3>Doctor</h3>
+    <button class="btn" onclick="showScreen('publicProvidersScreen');renderPublicProviders()">Find Doctor</button>
+   </div>
+
+   <div class="card">
+    <div class="icon">🏛️</div>
+    <h3>Government Yojana</h3>
+    <button class="btn" onclick="showScreen('yojanaScreen');renderYojana()">View Schemes</button>
+   </div>
+
+   <div class="card">
+    <div class="icon">🤖</div>
+    <h3>AI Health Triage</h3>
+    <button class="btn" onclick="showScreen('aiScreen')">Open AI Tools</button>
+   </div>
+
+   <div class="card">
+    <div class="icon">🔐</div>
+    <h3>Smart Health Vault</h3>
+    <button class="btn" onclick="showScreen('vaultScreen');loadVault()">Open Vault</button>
+   </div>
+
+   <div class="card">
+    <div class="icon">💰</div>
+    <h3>Hospital Charges & Tariff</h3>
+    <p>View and compare verified provider charges.</p>
+    <button class="btn" onclick="showScreen('costScreen');renderPublicCosts()">View Charges</button>
+   </div>
+
+   <div class="card">
+    <div class="icon">🏠</div>
+    <h3>Equipment Rental</h3>
+    <button class="btn" onclick="showScreen('equipmentScreen');renderEquipment()">Find Equipment</button>
+   </div>
+
+   <div class="card">
+    <div class="icon">📋</div>
+    <h3>Patient Status</h3>
+    <button class="btn" onclick="showScreen('patientScreen')">Track Patient</button>
+   </div>
+
+   <div class="card">
+    <div class="icon">📝</div>
+    <h3>Transparent Experience</h3>
+    <button class="btn" onclick="showScreen('experienceScreen')">View Timeline</button>
+   </div>
+
+   <div class="card">
+    <div class="icon">👨‍⚕️</div>
+    <h3>Second Opinion</h3>
+    <button class="btn" onclick="showScreen('opinionScreen');renderOpinions()">Request Opinion</button>
+   </div>
+  </div>
+
+  <h2 class="sectionTitle">📨 My Requests</h2>
+  <div id="publicRequests"></div>
+ </main>
+
+ <div class="footer">
+  HPFAF demo • Real emergency/provider/payment integrations require a secure backend and authorized APIs.
+ </div>
+</section>
+
+<section id="publicProvidersScreen" class="screen">
+ <header class="top">
+  <div class="brand">Verified Hospital & Clinic Providers</div>
+  <button class="btn light" onclick="showScreen('publicScreen')">← Public</button>
+ </header>
+ <main class="container">
+  <div class="card">
+   <input id="providerSearch" class="input" placeholder="Search hospital, clinic, doctor, city..." oninput="renderPublicProviders()">
+  </div>
+  <div id="publicProviderList"></div>
+ </main>
+</section>
+
+<section id="medicineScreen" class="screen">
+ <header class="top">
+  <div class="brand">💊 Medicine Brand Alternative Finder</div>
+  <button class="btn light" onclick="showScreen('publicScreen')">← Public</button>
+ </header>
+ <main class="container">
+  <div class="hero">
+   <h2>Find medicine alternatives</h2>
+   <p>Search by brand/generic/active ingredient. Results are informational; confirm any substitution with a qualified doctor or pharmacist.</p>
+  </div>
+  <div class="card">
+   <input id="medicineSearch" class="input" placeholder="e.g. Paracetamol, Dolo 650, Azithromycin">
+   <button class="btn" onclick="searchMedicineAlternatives()">Search</button>
+  </div>
+  <div id="medicineResults"></div>
+ </main>
+</section>
+
+<section id="bedScreen" class="screen">
+ <header class="top">
+  <div class="brand">🛏️ Live Bed Tracker</div>
+  <button class="btn light" onclick="showScreen('publicScreen')">← Public</button>
+ </header>
+ <main class="container">
+  <div class="card">
+   <input id="bedSearch" class="input" placeholder="Hospital/clinic or city" oninput="renderBeds()">
+  </div>
+  <div id="bedList"></div>
+ </main>
+</section>
+
+<section id="equipmentScreen" class="screen">
+ <header class="top">
+  <div class="brand">🏠 Equipment Rental</div>
+  <button class="btn light" onclick="showScreen('publicScreen')">← Public</button>
+ </header>
+ <main class="container">
+  <div id="equipmentList"></div>
+ </main>
+</section>
+
+<section id="costScreen" class="screen">
+ <header class="top">
+  <div class="brand">💰 Cost Transparency</div>
+  <button class="btn light" onclick="showScreen('publicScreen')">← Public</button>
+ </header>
+ <main class="container">
+  <div id="publicCostList"></div>
+ </main>
+</section>
+
+<section id="paymentScreen" class="screen">
+ <header class="top">
+  <div class="brand">💳 Payment</div>
+  <button class="btn light" onclick="showScreen('publicScreen')">← Public</button>
+ </header>
+ <main class="container">
+  <div class="card">
+   <h2>HPFAF Payment</h2>
+   <div id="paymentDetails"></div>
+   <button class="btn green" onclick="proceedPayment()">Proceed Payment</button>
+  </div>
+ </main>
+</section>
+
+<section id="aiScreen" class="screen">
+ <header class="top">
+  <div class="brand">🤖 AI Health Tools</div>
+  <button class="btn light" onclick="showScreen('publicScreen')">← Public</button>
+ </header>
+ <main class="container">
+  <div class="hero">
+   <h2>AI Health Assistant</h2>
+   <p>Informational support only. It does not replace a doctor or emergency service.</p>
+  </div>
+
+  <div class="card">
+   <h3>AI Health Triage</h3>
+   <textarea id="triageInput" class="input" placeholder="Describe symptoms..."></textarea>
+   <button class="btn" onclick="runTriage()">Analyze</button>
+   <div id="triageResult"></div>
+  </div>
+
+  <div class="card" style="margin-top:12px">
+   <h3>Report Simplifier</h3>
+   <textarea id="reportInput" class="input" placeholder="Paste report text..."></textarea>
+   <button class="btn" onclick="simplifyReport()">Simplify</button>
+   <div id="reportResult"></div>
+  </div>
+
+  <div class="card" style="margin-top:12px">
+   <h3>Aftercare Helper</h3>
+   <textarea id="aftercareInput" class="input" placeholder="Enter treatment/discharge details..."></textarea>
+   <button class="btn" onclick="makeAftercare()">Create Guidance</button>
+   <div id="aftercareResult"></div>
+  </div>
+
+  <div class="card" style="margin-top:12px">
+   <h3>Discharge Helper</h3>
+   <textarea id="dischargeInput" class="input" placeholder="Enter discharge information..."></textarea>
+   <button class="btn" onclick="makeDischarge()">Prepare Summary</button>
+   <div id="dischargeResult"></div>
+  </div>
+ </main>
+</section>
+
+<section id="vaultScreen" class="screen">
+ <header class="top">
+  <div class="brand">🔐 Smart Health Vault</div>
+  <button class="btn light" onclick="showScreen('publicScreen')">← Public</button>
+ </header>
+ <main class="container">
+  <div class="card">
+   <h3>Add Health Record</h3>
+   <input id="vaultTitle" class="input" placeholder="Record title">
+   <textarea id="vaultData" class="input" placeholder="Record details"></textarea>
+   <button class="btn" onclick="saveVaultRecord()">Save Record</button>
+  </div>
+  <div id="vaultList"></div>
+ </main>
+</section>
+
+<section id="patientScreen" class="screen">
+ <header class="top">
+  <div class="brand">📋 Patient Status</div>
+  <button class="btn light" onclick="showScreen('publicScreen')">← Public</button>
+ </header>
+ <main class="container">
+  <div class="card">
+   <input id="patientSearch" class="input" placeholder="Enter patient/booking ID">
+   <button class="btn" onclick="searchPatientStatus()">Track Status</button>
+  </div>
+  <div id="patientStatusResult"></div>
+ </main>
+</section>
+
+<section id="opinionScreen" class="screen">
+ <header class="top">
+  <div class="brand">👨‍⚕️ Second Opinion</div>
+  <button class="btn light" onclick="showScreen('publicScreen')">← Public</button>
+ </header>
+ <main class="container">
+  <div class="card">
+   <input id="opPatient" class="input" placeholder="Patient/Booking ID">
+   <input id="opSubject" class="input" placeholder="Condition / case subject">
+   <textarea id="opDetails" class="input" placeholder="Case details"></textarea>
+   <button class="btn" onclick="requestOpinion()">Request Second Opinion</button>
+  </div>
+  <div id="opinionList"></div>
+ </main>
+</section>
+
+<section id="comparisonScreen" class="screen">
+<header class="top">
+ <div class="brand">📊 Cost Comparison</div>
+ <button class="btn light" onclick="showScreen('publicScreen')">← Public</button>
+</header>
+<main class="container">
+ <div id="comparisonList"></div>
+</main>
+</section>
+
+<section id="patientScreen" class="screen">
+<header class="top">
+ <div class="brand">📋 Patient Status Tracker</div>
+ <button class="btn light" onclick="showScreen('publicScreen')">← Public</button>
+</header>
+<main class="container">
+ <div class="card">
+  <input id="patientId" class="input" placeholder="Patient ID / Booking ID">
+  <button class="btn" onclick="trackPatient()">Track</button>
+ </div>
+ <div id="patientResult"></div>
+</main>
+</section>
+
+<section id="experienceScreen" class="screen">
+<header class="top">
+ <div class="brand">📝 Transparent Patient Experience</div>
+ <button class="btn light" onclick="showScreen('publicScreen')">← Public</button>
+</header>
+<main class="container">
+ <div class="card">
+  <h3>Patient Journey</h3>
+  <p>Registration → Admission → Doctor → Tests → Treatment → Billing → Discharge</p>
+  <div id="experienceTimeline"></div>
+ </div>
+</main>
+</section>
+
+<section id="opinionScreen" class="screen">
+<header class="top">
+ <div class="brand">👨‍⚕️ Second Opinion</div>
+ <button class="btn light" onclick="showScreen('publicScreen')">← Public</button>
+</header>
+<main class="container">
+ <div class="card">
+  <input id="opPatient" class="input" placeholder="Patient/Booking ID">
+  <input id="opCondition" class="input" placeholder="Condition / diagnosis">
+  <input id="opSpecialty" class="input" placeholder="Required specialty">
+  <textarea id="opNotes" class="input" placeholder="Short details"></textarea>
+  <button class="btn" onclick="requestOpinion()">Request Opinion</button>
+ </div>
+ <div id="opinionList"></div>
+</main>
+</section>
+
+<section id="grievanceScreen" class="screen">
+<header class="top">
+ <div class="brand">🗣️ Patient Grievance</div>
+ <button class="btn light" onclick="showScreen('publicScreen')">← Public</button>
+</header>
+<main class="container">
+ <div class="card">
+  <input id="gPatient" class="input" placeholder="Patient/Booking ID">
+  <select id="gCategory" class="input">
+   <option>Billing</option>
+   <option>Service</option>
+   <option>Delay</option>
+   <option>Staff</option>
+   <option>Refund/Payment</option>
+   <option>Other</option>
+  </select>
+  <textarea id="gText" class="input" placeholder="Describe your issue"></textarea>
+  <button class="btn" onclick="submitGrievance()">Submit Complaint</button>
+ </div>
+ <div id="grievanceList"></div>
+</main>
+</section>
+
+<section id="yojanaScreen" class="screen">
+<header class="top">
+ <div class="brand">🏛️ Government Medical Yojana</div>
+ <button class="btn light" onclick="showScreen('publicScreen')">← Public</button>
+</header>
+<main class="container">
+ <div class="card">
+  <input id="yojanaSearch" class="input" placeholder="Search scheme" oninput="renderYojana()">
+ </div>
+ <div id="yojanaList"></div>
+</main>
+</section>
+
+<section id="aiScreen" class="screen">
+<header class="top">
+ <div class="brand">🤖 AI Health Assistant</div>
+ <button class="btn light" onclick="showScreen('publicScreen')">← Public</button>
+</header>
+
+<main class="container">
+ <div class="grid">
+
+  <div class="card">
+   <h3>AI Symptom Triage</h3>
+   <textarea id="triageSymptoms" class="input"
+    placeholder="Describe symptoms"></textarea>
+
+   <select id="triageSeverity" class="input">
+    <option value="mild">Mild</option>
+    <option value="moderate">Moderate</option>
+    <option value="severe">Severe</option>
+   </select>
+
+   <label>
+    <input type="checkbox" id="triageRedFlag">
+    Serious warning sign present
+   </label>
+
+   <button class="btn" onclick="runTriage()">
+    Check Urgency
+   </button>
+
+   <div id="triageResult"></div>
+  </div>
+
+  <div class="card">
+   <h3>Report Simplifier</h3>
+   <textarea id="reportText" class="input"
+    placeholder="Paste report text"></textarea>
+
+   <button class="btn" onclick="simplifyReport()">
+    Simplify
+   </button>
+
+   <div id="reportResult"></div>
+  </div>
+
+  <div class="card">
+   <h3>Aftercare Planner</h3>
+   <textarea id="aftercareText" class="input"
+    placeholder="Enter discharge/aftercare instructions"></textarea>
+
+   <button class="btn" onclick="makeAftercare()">
+    Create Checklist
+   </button>
+
+   <div id="aftercareResult"></div>
+  </div>
+
+  <div class="card">
+   <h3>Discharge Planner</h3>
+   <textarea id="dischargeText" class="input"
+    placeholder="Enter discharge details"></textarea>
+
+   <button class="btn" onclick="makeDischarge()">
+    Plan
+   </button>
+
+   <div id="dischargeResult"></div>
+  </div>
+
+ </div>
+
+ <p class="small">
+  AI tools here are a demo/organization aid, not a diagnosis or emergency
+  decision system. Confirm medical decisions with qualified healthcare
+  professionals.
+ </p>
+</main>
+</section>
+
+<section id="vaultScreen" class="screen">
+<header class="top">
+ <div class="brand">🔐 Smart Health Vault</div>
+ <button class="btn light" onclick="showScreen('publicScreen')">
+  ← Public
+ </button>
+</header>
+
+<main class="container">
+
+ <div class="card">
+  <h3>Patient Profile</h3>
+
+  <div class="row">
+   <input id="vPatient" class="input" placeholder="Patient ID">
+   <input id="vName" class="input" placeholder="Full Name">
+   <input id="vDob" class="input" type="date">
+   <input id="vBlood" class="input" placeholder="Blood Group">
+   <input id="vAllergy" class="input" placeholder="Allergies">
+  </div>
+
+  <button class="btn" onclick="saveVaultProfile()">
+   Save Profile
+  </button>
+ </div>
+
+ <div class="card">
+  <h3>Add Health Record</h3>
+
+  <select id="vType" class="input">
+   <option>Lab Report</option>
+   <option>Prescription</option>
+   <option>Hospital Record</option>
+   <option>Vaccination</option>
+   <option>Medicine</option>
+   <option>Discharge Summary</option>
+  </select>
+
+  <input id="vTitle" class="input" placeholder="Record title">
+
+  <textarea id="vDetails" class="input"
+   placeholder="Record details"></textarea>
+
+  <button class="btn" onclick="addVaultRecord()">
+   Add Record
+  </button>
+ </div>
+
+ <div id="vaultContent"></div>
+
+</main>
+</section>
+
+<section id="paymentScreen" class="screen">
+<header class="top">
+ <div class="brand">💳 Payment</div>
+ <button class="btn light" onclick="showScreen('publicScreen')">
+  ← Public
+ </button>
+</header>
+
+<main class="container">
+ <div id="paymentBox" class="card"></div>
+</main>
+</section>
+
+<section id="providerRegistrationScreen" class="screen">
+<header class="top">
+ <div class="brand">🏥 Provider Registration</div>
+ <button class="btn light" onclick="showScreen('publicScreen')">
+  ← Public
+ </button>
+</header>
+
+<main class="container">
+
+ <div class="hero">
+  <h2>Hospital + Clinic Provider</h2>
+  <p>
+   One registration section for both provider types.
+   HPFAF automatically generates an internal Provider Registration ID.
+  </p>
+ </div>
+
+ <div class="card">
+
+  <div class="row">
+
+   <select id="prType" class="input">
+    <option>Hospital</option>
+    <option>Clinic</option>
+   </select>
+
+   <input id="prName" class="input"
+    placeholder="Hospital / Clinic name">
+
+   <input id="prDoctor" class="input"
+    placeholder="Doctor / Contact person">
+
+   <input id="prPhone" class="input"
+    placeholder="Phone">
+
+   <input id="prWhatsapp" class="input"
+    placeholder="WhatsApp number">
+
+   <input id="prCity" class="input"
+    placeholder="City">
+
+   <input id="prAddress" class="input"
+    placeholder="Full address">
+
+   <input id="prLicense" class="input"
+    placeholder="Government medical registration/license number">
+
+   <input id="prSpecialty" class="input"
+    placeholder="Specialization">
+
+  </div>
+
+  <h3>Facilities</h3>
+
+  <div class="row">
+
+   <input id="prICU" class="input"
+    type="number" min="0" placeholder="ICU beds">
+
+   <input id="prCCU" class="input"
+    type="number" min="0" placeholder="CCU beds">
+
+   <input id="prNICU" class="input"
+    type="number" min="0" placeholder="NICU beds">
+
+   <input id="prGeneral" class="input"
+    type="number" min="0" placeholder="General beds">
+
+   <input id="prOT" class="input"
+    type="number" min="0" placeholder="OT count">
+
+  </div>
+
+  <div class="row">
+
+   <select id="prPathology" class="input">
+    <option value="Yes">Pathology Lab: Yes</option>
+    <option value="No">Pathology Lab: No</option>
+   </select>
+
+   <select id="prRadiology" class="input">
+    <option value="Yes">Radiology Lab: Yes</option>
+    <option value="No">Radiology Lab: No</option>
+   </select>
+
+   <select id="prBilling" class="input">
+    <option>Billing Available</option>
+    <option>No Billing Desk</option>
+   </select>
+
+   <select id="prTPA" class="input">
+    <option>TPA/Insurance Desk</option>
+    <option>No TPA/Insurance Desk</option>
+   </select>
+
+  </div>
+
+  <button class="btn green" onclick="registerProvider()">
+   Submit Registration
+  </button>
+
+  <div id="registrationResult"></div>
+
+ </div>
+</main>
+</section>
+
+<section id="providerScreen" class="screen">
+<header class="top">
+ <div class="brand">🏥 Provider Home</div>
+
+ <div class="topBtns">
+  <button class="btn light"
+   onclick="showScreen('publicScreen')">
+   Public
+  </button>
+
+  <button class="btn light"
+   onclick="showScreen('founderScreen');loadFounder()">
+   Founder
+  </button>
+ </div>
+</header>
+
+<main class="container">
+
+ <div id="providerHeader" class="hero"></div>
+
+ <div class="grid">
+
+  <div class="card">
+   <h3>📨 Public Requests</h3>
+   <p>Accept or deny bookings.</p>
+   <button class="btn" onclick="renderProviderRequests()">
+    Open
+   </button>
+  </div>
+
+  <div class="card">
+   <h3>📦 Dynamic Inventory</h3>
+   <p>Beds, blood, medicines, equipment with TTL freshness.</p>
+   <button class="btn"
+    onclick="showScreen('providerInventoryScreen');loadProviderInventory()">
+    Manage
+   </button>
+  </div>
+
+  <div class="card">
+   <h3>💰 Costs</h3>
+   <button class="btn"
+    onclick="showScreen('providerCostScreen');loadProviderCost()">
+    Manage Costs
+   </button>
+  </div>
+
+  <div class="card">
+   <h3>📋 Patient Status</h3>
+   <button class="btn"
+    onclick="showScreen('providerPatientScreen')">
+    Update
+   </button>
+  </div>
+
+  <div class="card">
+   <h3>👨‍⚕️ Second Opinions</h3>
+   <button class="btn"
+    onclick="showScreen('providerOpinionScreen');renderProviderOpinions()">
+    Manage
+   </button>
+  </div>
+
+  <div class="card">
+   <h3>🗣️ Grievances</h3>
+   <button class="btn"
+    onclick="showScreen('providerGrievanceScreen');renderProviderGrievances()">
+    Manage
+   </button>
+  </div>
+
+  <div class="card">
+   <h3>🔐 Health Vault</h3>
+
+   <input id="providerShareCode" class="input"
+    placeholder="Share code">
+
+   <button class="btn" onclick="openSharedVault()">
+    View Shared Record
+   </button>
+  </div>
+
+ </div>
+
+ <div class="card" style="margin-top:15px">
+  <h3>Provider profile</h3>
+  <div id="providerProfileBox"></div>
+ </div>
+
+ <div id="providerRequests"></div>
+
+</main>
+</section>
+
+<section id="providerInventoryScreen" class="screen">
+<header class="top">
+ <div class="brand">📦 Provider Inventory + TTL</div>
+ <button class="btn light"
+  onclick="showScreen('providerScreen')">
+  ← Provider
+ </button>
+</header>
+
+<main class="container">
+
+ <div class="card">
+  <h3>Update Inventory</h3>
+
+  <div class="row">
+
+   <select id="invType" class="input">
+    <option>ICU</option>
+    <option>CCU</option>
+    <option>NICU</option>
+    <option>General Bed</option>
+
+    <option>Blood A+</option>
+    <option>Blood A-</option>
+    <option>Blood B+</option>
+    <option>Blood B-</option>
+    <option>Blood AB+</option>
+    <option>Blood AB-</option>
+    <option>Blood O+</option>
+    <option>Blood O-</option>
+
+    <option>Medicine</option>
+    <option>Equipment</option>
+   </select>
+
+   <input id="invName" class="input"
+    placeholder="Item name (for medicine/equipment)">
+
+   <input id="invQty" class="input"
+    type="number" min="0" placeholder="Quantity">
+
+   <input id="invTTL" class="input"
+    type="number" min="1" value="30"
+    placeholder="TTL minutes">
+
+  </div>
+
+  <button class="btn" onclick="saveInventory()">
+   Update Now
+  </button>
+
+  <button class="btn gray" onclick="refreshInventoryTTL()">
+   Refresh Status
+  </button>
+
+ </div>
+
+ <div id="providerInventoryList"></div>
+
+</main>
+</section>
+
+<section id="providerCostScreen" class="screen">
+<header class="top">
+ <div class="brand">💰 Provider Cost Management</div>
+ <button class="btn light"
+  onclick="showScreen('providerScreen')">
+  ← Provider
+ </button>
+</header>
+
+<main class="container">
+
+ <div class="card">
+
+  <p class="small">
+   Provider controls these charges. Public only views
+   verified/provider-entered costs and can use Pay Now.
+  </p>
+
+  <div class="row">
+
+   <input id="cConsult" class="input"
+    type="number" placeholder="Consultation">
+
+   <input id="cGeneral" class="input"
+    type="number" placeholder="General bed/day">
+
+   <input id="cICU" class="input"
+    type="number" placeholder="ICU/day">
+
+   <input id="cCCU" class="input"
+    type="number" placeholder="CCU/day">
+
+   <input id="cNICU" class="input"
+    type="number" placeholder="NICU/day">
+
+   <input id="cOT" class="input"
+    type="number" placeholder="OT">
+
+   <input id="cPath" class="input"
+    type="number" placeholder="Pathology">
+
+   <input id="cRadio" class="input"
+    type="number" placeholder="Radiology">
+
+   <input id="cMedicine" class="input"
+    type="number" placeholder="Medicine estimate">
+
+   <input id="cOther" class="input"
+    type="number" placeholder="Other">
+
+  </div>
+
+  <button class="btn green" onclick="saveProviderCost()">
+   Save Costs
+  </button>
+
+ </div>
+
+</main>
+</section>
+
+<section id="providerPatientScreen" class="screen">
+<header class="top">
+ <div class="brand">📋 Provider Patient Status</div>
+ <button class="btn light"
+  onclick="showScreen('providerScreen')">
+  ← Provider
+ </button>
+</header>
+
+<main class="container">
+
+ <div class="card">
+
+  <input id="ppId" class="input"
+   placeholder="Patient/Booking ID">
+
+  <select id="ppStatus" class="input">
+   <option>Registered</option>
+   <option>Waiting</option>
+   <option>Admitted</option>
+   <option>Under Treatment</option>
+   <option>Tests / Reports</option>
+   <option>Treatment Completed</option>
+   <option>Discharge Ready</option>
+   <option>Discharged</option>
+  </select>
+
+  <input id="ppTotal" class="input"
+   type="number" placeholder="Total Cost">
+
+  <input id="ppPaid" class="input"
+   type="number" placeholder="Paid Amount">
+
+  <textarea id="ppNote" class="input"
+   placeholder="Short update/note"></textarea>
+
+  <button class="btn" onclick="updatePatientStatus()">
+   Update Patient
+  </button>
+
+ </div>
+
+</main>
+</section>
+
+<section id="providerOpinionScreen" class="screen">
+<header class="top">
+ <div class="brand">👨‍⚕️ Provider Second Opinions</div>
+ <button class="btn light"
+  onclick="showScreen('providerScreen')">
+  ← Provider
+ </button>
+</header>
+
+<main class="container">
+ <div id="providerOpinionList"></div>
+</main>
+</section>
+
+<section id="providerGrievanceScreen" class="screen">
+<header class="top">
+ <div class="brand">🗣️ Provider Grievances</div>
+ <button class="btn light"
+  onclick="showScreen('providerScreen')">
+  ← Provider
+ </button>
+</header>
+
+<main class="container">
+ <div id="providerGrievanceList"></div>
+</main>
+</section>
+
+<section id="founderScreen" class="screen">
+<header class="top">
+  <div class="brand">👑 Founder / Admin</div>
+  <div class="topBtns">
+    <button class="btn light" onclick="showScreen('publicScreen')">Public</button>
+    <button class="btn light" onclick="showScreen('providerScreen');loadProviderHome()">Provider</button>
+  </div>
+</header>
+
+<main class="container">
+
+  <div class="hero">
+    <h2>Founder Control Center</h2>
+    <p>Manage provider verification, inventory monitoring, patients and grievances.</p>
+  </div>
+
+  <div id="founderStats" class="grid"></div>
+
+  <h2 class="sectionTitle">🏥 Provider Verification</h2>
+  <div id="founderProviders"></div>
+
+  <h2 class="sectionTitle">📦 Inventory Monitoring</h2>
+  <div id="founderInventory"></div>
+
+  <h2 class="sectionTitle">📋 Patient Monitoring</h2>
+  <div id="founderPatients"></div>
+
+  <h2 class="sectionTitle">🗣️ Grievance Monitoring</h2>
+  <div id="founderGrievances"></div>
+
+</main>
+</section>
+
+</div>
+
+<script>
+// ==========================================
+// HPFAF BACKEND CONNECTION
+// ==========================================
+
+const API_BASE = "/api";
+
+async function apiRequest(url, options = {}) {
+    try {
+        const response = await fetch(API_BASE + url, {
+            headers: {
+                "Content-Type": "application/json",
+                ...(options.headers || {})
+            },
+            ...options
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || "Backend request failed");
+        }
+
+        return data;
+
+    } catch (error) {
+        console.error("HPFAF API Error:", error);
+        throw error;
+    }
+}
+
+
+// Check backend
+async function checkBackend() {
+    try {
+        const data = await apiRequest("/status");
+
+        console.log("HPFAF Backend:", data);
+
+        return true;
+
+    } catch (error) {
+        console.error("HPFAF Backend Offline:", error);
+
+        return false;
+    }
+}
+
+
+// Load approved providers from backend
+async function loadBackendProviders() {
+    try {
+
+        const data = await apiRequest("/providers");
+
+        if (data.success && Array.isArray(data.providers)) {
+
+            console.log(
+                "Approved providers from backend:",
+                data.providers
+            );
+
+            return data.providers;
+        }
+
+        return [];
+
+    } catch (error) {
+
+        console.error(
+            "Unable to load backend providers:",
+            error
+        );
+
+        return [];
+    }
+}
+
+
+// Load Founder providers from backend
+async function loadFounderBackendProviders() {
+    try {
+
+        const data =
+            await apiRequest("/founder/providers");
+
+        if (
+            data.success &&
+            Array.isArray(data.providers)
+        ) {
+            return data.providers;
+        }
+
+        return [];
+
+    } catch (error) {
+
+        console.error(
+            "Founder backend error:",
+            error
+        );
+
+        return [];
+    }
+}
+
+const $=id=>document.getElementById(id);
+
+const get=(k,d)=>{
+  try{
+    return JSON.parse(localStorage.getItem(k))??d
+  }catch{
+    return d
+  }
+};
+
+const set=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,7);
+
+function escapeHtml(value){
+  return String(value??'')
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#039;');
+}
+
+function openApp(){
+  const welcome=$('welcomeScreen');
+  const app=$('app');
+
+  if(!welcome||!app){
+    alert('Welcome screen or app section not found.');
+    return;
+  }
+
+  welcome.style.display='none';
+  app.classList.remove('hidden');
+
+  showScreen('publicScreen');
+  renderPublicRequests();
+}
+
+function openProviderRegistration(){
+  $('welcomeScreen').style.display='none';
+  $('app').classList.remove('hidden');
+  showScreen('providerRegistrationScreen');
+}
+
+function showScreen(id){
+
+  document.querySelectorAll('.screen')
+    .forEach(s=>s.classList.remove('active'));
+
+  const el=$(id);
+
+  if(el){
+    el.classList.add('active');
+  }
+
+  window.scrollTo(0,0);
+
+  if(id==='publicScreen')
+    renderPublicRequests();
+
+  if(id==='founderScreen')
+    loadFounder();
+
+  if(id==='publicProvidersScreen')
+    renderPublicProviders();
+
+  if(id==='bedScreen')
+    renderBeds();
+
+  if(id==='equipmentScreen')
+    renderEquipment();
+
+  if(id==='costScreen')
+    renderPublicCosts();
+
+  if(id==='yojanaScreen')
+    renderYojana();
+
+  if(id==='vaultScreen')
+    loadVault();
+
+  if(id==='opinionScreen')
+    renderOpinions();
+
+  if(id==='providerScreen')
+    loadProviderHome();
+}
+
+function notify(msg){
+  alert(msg);
+}
+
+
+/* =========================
+   EMERGENCY
+========================= */
+
+function emergency(type){
+
+  if(!navigator.geolocation){
+
+    notify(
+      type+
+      ' emergency: location is not available on this browser. '+
+      'Call local emergency services.'
+    );
+
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+
+    pos=>{
+
+      notify(
+        type+
+        ' emergency request prepared. Location: '+
+        pos.coords.latitude.toFixed(5)+
+        ', '+
+        pos.coords.longitude.toFixed(5)+
+        '\nFor a real deployment, connect this action to authorized emergency/provider APIs.'
+      );
+
+    },
+
+    ()=>{
+      notify(
+        type+
+        ' emergency: location permission was not granted. '+
+        'Please use your local emergency service.'
+      );
+    },
+
+    {
+      enableHighAccuracy:true,
+      timeout:8000
+    }
+  );
+}
+
+
+/* =========================
+   MEDICINE
+========================= */
+
+const medicines=[
+
+ {
+  brand:'Crocin 500',
+  generic:'Paracetamol',
+  strength:'500 mg',
+  form:'Tablet',
+  alternatives:['Paracetamol 500','Calpol 500'],
+  price:'₹15–₹30'
+ },
+
+ {
+  brand:'Dolo 650',
+  generic:'Paracetamol',
+  strength:'650 mg',
+  form:'Tablet',
+  alternatives:['Calpol 650','Paracetamol 650'],
+  price:'₹20–₹40'
+ },
+
+ {
+  brand:'Azithral 500',
+  generic:'Azithromycin',
+  strength:'500 mg',
+  form:'Tablet',
+  alternatives:['Azee 500','Azimax 500'],
+  price:'₹40–₹90'
+ },
+
+ {
+  brand:'Azee 500',
+  generic:'Azithromycin',
+  strength:'500 mg',
+  form:'Tablet',
+  alternatives:['Azithral 500','Azimax 500'],
+  price:'₹40–₹90'
+ },
+
+ {
+  brand:'Pantocid 40',
+  generic:'Pantoprazole',
+  strength:'40 mg',
+  form:'Tablet',
+  alternatives:['Pantop 40','Pantoprazole 40'],
+  price:'₹30–₹80'
+ },
+
+ {
+  brand:'Allegra 120',
+  generic:'Fexofenadine',
+  strength:'120 mg',
+  form:'Tablet',
+  alternatives:['Fexova 120','Fexofenadine 120'],
+  price:'₹60–₹120'
+ }
+
+];
+
+function searchMedicineAlternatives(){
+
+  const q=(
+    $('medicineSearch').value||''
+  ).trim().toLowerCase();
+
+  const out=medicines.filter(m=>
+    (
+      m.brand+
+      ' '+
+      m.generic+
+      ' '+
+      m.strength+
+      ' '+
+      m.form
+    ).toLowerCase().includes(q)
+  );
+
+  $('medicineResults').innerHTML=
+
+    out.length
+
+    ?
+
+    out.map(m=>`
+
+      <div class="card" style="margin-top:10px">
+
+        <h3>${escapeHtml(m.brand)}</h3>
+
+        <p>
+          <b>Active ingredient:</b>
+          ${escapeHtml(m.generic)}
+          <br>
+
+          <b>Strength:</b>
+          ${escapeHtml(m.strength)}
+          <br>
+
+          <b>Form:</b>
+          ${escapeHtml(m.form)}
+          <br>
+
+          <b>Demo price:</b>
+          ${escapeHtml(m.price)}
+        </p>
+
+        <p>
+          <b>Alternative examples:</b>
+          ${m.alternatives.map(escapeHtml).join(', ')}
+        </p>
+
+        <span class="pill">
+          Same active ingredient/strength/form in demo database
+        </span>
+
+        <p class="small">
+          Do not substitute based only on brand name.
+          Confirm with a doctor/pharmacist.
+        </p>
+
+      </div>
+
+    `).join('')
+
+    :
+
+    '<div class="card">No matching medicine found in the demo database.</div>';
+}
+
+
+/* =========================
+   PROVIDERS
+========================= */
+
+function providerData(){
+  return get('hpfafProviders',[]);
+}
+
+function getNextRegistrationNumber(){
+
+  const nums=
+
+    providerData()
+
+      .filter(p=>p.status!=='Rejected')
+
+      .map(p=>
+        Number(
+          String(p.registrationNumber||'')
+          .replace(/\D/g,'')
+        )
+      )
+
+      .filter(Boolean);
+
+  let n=1;
+
+  while(nums.includes(n))
+    n++;
+
+  return 'HPFAF-PRV-'+String(n).padStart(4,'0');
+}
+
+async function registerProvider(){
+
+  const name=$('prName').value.trim();
+  const address=$('prAddress').value.trim();
+  const city=$('prCity').value.trim();
+  const phone=$('prPhone').value.trim();
+
+  if(!name){
+    notify('Hospital/Clinic name required');
+    return;
+  }
+
+  if(!address){
+    notify('Address required');
+    return;
+  }
+
+  if(!city){
+    notify('City required');
+    return;
+  }
+
+  if(!phone){
+    notify('Phone number required');
+    return;
+  }
+
+  try{
+
+    const response=await fetch('/api/providers',{
+      method:'POST',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify({
+
+        hospital_name:name,
+        city:city,
+        address:address,
+        phone:phone
+
+      })
+    });
+
+    const data=await response.json();
+
+    if(!response.ok){
+
+      notify(data.error||'Provider registration failed');
+
+      return;
+    }
+
+    /*
+      Backend database registration successful.
+      Keep existing HPFAF local provider profile too.
+    */
+
+    const p={
+
+      id:String(data.providerId),
+
+      registrationNumber:
+        getNextRegistrationNumber(),
+
+      type:$('prType').value,
+
+      name:name,
+
+      doctor:$('prDoctor').value.trim(),
+
+      phone:phone,
+
+      whatsapp:$('prWhatsapp').value.trim(),
+
+      city:city,
+
+      address:address,
+
+      license:$('prLicense').value.trim(),
+
+      specialty:$('prSpecialty').value.trim(),
+
+      facilities:{
+
+        ICU:+$('prICU').value||0,
+
+        CCU:+$('prCCU').value||0,
+
+        NICU:+$('prNICU').value||0,
+
+        General:+$('prGeneral').value||0,
+
+        OT:+$('prOT').value||0,
+
+        Pathology:$('prPathology').value,
+
+        Radiology:$('prRadiology').value,
+
+        Billing:$('prBilling').value,
+
+        TPA:$('prTPA').value
+
+      },
+
+      status:'Pending',
+
+      backendId:data.providerId,
+
+      createdAt:new Date().toISOString()
+
+    };
+
+    const providers=providerData();
+
+    providers.push(p);
+
+    set('hpfafProviders',providers);
+
+    set('hpfafCurrentProvider',p.id);
+
+    $('registrationResult').innerHTML=`
+
+      <div class="listItem">
+
+        <b>Registration submitted successfully.</b>
+
+        <br>
+
+        Your HPFAF Provider ID:
+
+        <b>${escapeHtml(p.registrationNumber)}</b>
+
+        <br>
+
+        Database ID:
+
+        <b>${escapeHtml(String(data.providerId))}</b>
+
+        <br>
+
+        Status:
+
+        <span class="status pending">
+          Pending Founder Verification
+        </span>
+
+      </div>
+
+    `;
+
+    notify(
+      'Provider registered successfully in HPFAF database. Founder approval is required.'
+    );
+
+  }catch(error){
+
+    console.error('Provider registration error:',error);
+
+    notify(
+      'Backend connection failed. Please make sure server.js is running.'
+    );
+
+  }
+}
+/* =========================
+   REQUESTS
+========================= */
+
+function bookService(service,providerId){
+
+  const providers=providerData();
+
+  const p=
+    providers.find(x=>x.id===providerId) ||
+    providers.find(x=>x.status==='Approved') ||
+    {
+      id:'demo',
+      name:'City Hospital'
+    };
+
+  const req={
+
+    id:uid(),
+
+    service,
+
+    providerId:p.id,
+
+    provider:p.name,
+
+    status:'Pending',
+
+    createdAt:new Date().toISOString()
+
+  };
+
+  const arr=get('hpfafRequests',[]);
+
+  arr.unshift(req);
+
+  set('hpfafRequests',arr);
+
+  renderPublicRequests();
+
+  notify(
+    'Request sent to '+p.name+
+    '. Status: Pending.'
+  );
+}
+
+function renderPublicRequests(){
+
+  const arr=get('hpfafRequests',[]);
+
+  $('publicRequests').innerHTML=
+
+    arr.length
+
+    ?
+
+    arr.slice(0,12).map(r=>`
+
+      <div class="listItem">
+
+        <b>${escapeHtml(r.service)}</b>
+        —
+        ${escapeHtml(r.provider)}
+
+        <br>
+
+        <span class="status ${String(r.status).toLowerCase()}">
+          ${escapeHtml(r.status)}
+        </span>
+
+        <span class="small">
+          ${new Date(r.createdAt).toLocaleString()}
+        </span>
+
+        ${
+          r.status==='Accepted'
+          ?
+          `<button
+            class="btn"
+            onclick="payNow('${r.id}',${Number(r.amount)||0})">
+            Pay Now
+          </button>`
+          :
+          ''
+        }
+
+      </div>
+
+    `).join('')
+
+    :
+
+    '<div class="card">No requests yet.</div>';
+}
+
+function renderProviderRequests(){
+
+  const arr=get('hpfafRequests',[]);
+
+  $('providerRequests').innerHTML=
+
+    arr.length
+
+    ?
+
+    arr.map(r=>`
+
+      <div class="listItem">
+
+        <b>${escapeHtml(r.service)}</b>
+        —
+        ${escapeHtml(r.provider)}
+
+        <br>
+
+        Status:
+        <span class="status ${String(r.status).toLowerCase()}">
+          ${escapeHtml(r.status)}
+        </span>
+
+        ${
+          r.status==='Pending'
+          ?
+
+          `<button
+            class="btn green"
+            onclick="updateRequest('${r.id}','Accepted')">
+            Accept
+          </button>
+
+          <button
+            class="btn red"
+            onclick="updateRequest('${r.id}','Denied')">
+            Deny
+          </button>`
+
+          :
+          ''
+        }
+
+      </div>
+
+    `).join('')
+
+    :
+
+    '<div class="card">No public requests.</div>';
+}
+
+function updateRequest(id,status){
+
+  const a=get('hpfafRequests',[]);
+
+  const r=a.find(x=>x.id===id);
+
+  if(r){
+
+    r.status=status;
+
+    set('hpfafRequests',a);
+
+    renderProviderRequests();
+
+    renderPublicRequests();
+
+    notify('Request '+status+'.');
+
+  }
+}
+
+
+/* =========================
+   BEDS
+========================= */
+
+function renderBeds(){
+
+  const q=(
+    $('bedSearch')?.value||''
+  ).toLowerCase();
+
+  const providers=
+    providerData()
+    .filter(p=>p.status==='Approved');
+
+  const inv=get('hpfafInventory',[]);
+
+  let html='';
+
+  providers.forEach(p=>{
+
+    if(
+      !(p.name+' '+p.city)
+      .toLowerCase()
+      .includes(q)
+    ) return;
+
+    ['ICU','CCU','NICU','General']
+    .forEach(type=>{
+
+      const x=inv.find(
+        i=>
+          i.providerId===p.id &&
+          i.type===type
+      );
+
+      const qty=
+        x
+        ?
+        x.qty
+        :
+        (p.facilities[type]||0);
+
+      const fresh=
+        x &&
+        Date.now()-x.updatedAt<=x.ttl*60000;
+
+      const cls=
+        qty===0
+        ?
+        'stale'
+        :
+        (!fresh&&x
+          ?
+          'stale'
+          :
+          qty<=2
+          ?
+          'limited'
+          :
+          'fresh'
+        );
+
+      html+=`
+
+        <div class="listItem">
+
+          <b>${escapeHtml(p.name)}</b>
+          —
+          ${type} Bed:
+          <b>${qty}</b>
+
+          <span class="status ${cls}">
+            ${
+              qty===0
+              ?
+              'Full'
+              :
+              (!fresh&&x
+                ?
+                'Needs Update'
+                :
+                qty<=2
+                ?
+                'Limited'
+                :
+                'Available'
+              )
+            }
+          </span>
+
+          ${
+            x
+            ?
+            `<div class="small">
+              Last verified
+              ${Math.round(
+                (Date.now()-x.updatedAt)/60000
+              )}
+              min ago
+            </div>`
+            :
+            ''
+          }
+
+          <button
+            class="btn"
+            onclick="bookService('${type} Bed','${p.id}')">
+            Book / Request
+          </button>
+
+        </div>
+
+      `;
+
+    });
+
+  });
+
+  $('bedList').innerHTML=
+    html ||
+    '<div class="card">No verified bed data available.</div>';
+}
+
+
+/* =========================
+   EQUIPMENT
+========================= */
+
+const equipment=[
+  ['Wheelchair','₹100/day'],
+  ['Oxygen Concentrator','₹500/day'],
+  ['Hospital Bed','₹700/day'],
+  ['Walker','₹80/day'],
+  ['Nebulizer','₹150/day']
+];
+
+function renderEquipment(){
+
+  $('equipmentList').innerHTML=
+
+    equipment.map(e=>`
+
+      <div class="card" style="margin:10px 0">
+
+        <h3>${escapeHtml(e[0])}</h3>
+
+        <p>
+          Rental estimate:
+          <b>${escapeHtml(e[1])}</b>
+        </p>
+
+        <button
+          class="btn"
+          onclick="bookService('Equipment: ${e[0]}','demo')">
+          Rent / Request
+        </button>
+
+      </div>
+
+    `).join('');
+}
+
+
+/* =========================
+   COST
+========================= */
+
+function renderPublicCosts(){
+
+  const q=(
+    $('costSearch')?.value||''
+  ).toLowerCase();
+
+  const arr=
+    get('hpfafCosts',[])
+    .filter(c=>
+      (c.providerName+' '+c.city)
+      .toLowerCase()
+      .includes(q)
+    );
+
+  $('publicCostList').innerHTML=
+
+    arr.length
+
+    ?
+
+    arr.map(c=>`
+
+      <div class="card" style="margin:10px 0">
+
+        <h3>${escapeHtml(c.providerName)}</h3>
+
+        <p>
+          Consultation ₹${c.consult||0}
+          • General ₹${c.general||0}/day
+          • ICU ₹${c.icu||0}/day
+          • CCU ₹${c.ccu||0}/day
+          • NICU ₹${c.nicu||0}/day
+        </p>
+
+        <p>
+          OT ₹${c.ot||0}
+          • Pathology ₹${c.path||0}
+          • Radiology ₹${c.radio||0}
+          • Medicine ₹${c.medicine||0}
+          • Other ₹${c.other||0}
+        </p>
+
+        <button
+          class="btn"
+          onclick="payNow('cost-${c.providerId}',${Number(c.consult)||0})">
+          Pay Now
+        </button>
+
+      </div>
+
+    `).join('')
+
+    :
+
+    '<div class="card">No provider-entered costs available yet.</div>';
+}
+
+
+/* =========================
+   PAYMENT
+========================= */
+
+function payNow(ref,amount){
+
+  $('paymentBox').innerHTML=`
+
+    <h2>Payment</h2>
+
+    <p>
+      Reference:
+      <b>${escapeHtml(ref)}</b>
+    </p>
+
+    <p class="price">
+      ₹${amount||0}
+    </p>
+
+    <button
+      class="btn green"
+      onclick="proceedPayment('${ref}',${amount||0})">
+      Proceed to Pay
+    </button>
+
+    <button
+      class="btn gray"
+      onclick="notify('Pay at Hospital selected.')">
+      Pay at Hospital
+    </button>
+
+  `;
+
+  showScreen('paymentScreen');
+}
+
+function proceedPayment(ref,amount){
+
+  notify(
+    'Demo payment selected for '+
+    ref+
+    ' — ₹'+
+    amount
+  );
+}
+
+
+/* =========================
+   AI TOOLS
+========================= */
+
+function runTriage(){
+
+  const text=(
+    $('triageSymptoms')?.value||''
+  ).trim();
+
+  const severe=$('triageSeverity')?.value==='severe';
+
+  const red=$('triageRedFlag')?.checked;
+
+  let result='';
+
+  if(red||severe){
+
+    result=`
+      <div class="listItem">
+        <b>Urgent attention recommended.</b>
+        <p>
+          Please contact a qualified healthcare professional
+          or appropriate emergency service promptly.
+        </p>
+      </div>
+    `;
+
+  }else if(text){
+
+    result=`
+      <div class="listItem">
+        <b>General guidance</b>
+        <p>
+          Monitor symptoms and consult a qualified healthcare
+          professional if symptoms persist, worsen, or concern you.
+        </p>
+      </div>
+    `;
+
+  }else{
+
+    result=
+      '<div class="listItem">Enter symptoms first.</div>';
+
+  }
+
+  $('triageResult').innerHTML=result;
+}
+
+function simplifyReport(){
+
+  const text=(
+    $('reportText')?.value||''
+  ).trim();
+
+  $('reportResult').innerHTML=
+
+    text
+
+    ?
+
+    `<div class="listItem">
+      <b>Simplified view</b>
+      <p>${escapeHtml(text)}</p>
+      <p class="small">
+        This tool organizes the text only and does not interpret
+        medical findings as a diagnosis.
+      </p>
+    </div>`
+
+    :
+
+    '<div class="listItem">Enter report text first.</div>';
+}
+
+function makeAftercare(){
+
+  const text=(
+    $('aftercareText')?.value||''
+  ).trim();
+
+  $('aftercareResult').innerHTML=
+
+    text
+
+    ?
+
+    `<div class="listItem">
+      <b>Aftercare checklist</b>
+      <ul>
+       <li>Follow the instructions given by your healthcare professional.</li>
+       <li>Take medicines only as prescribed.</li>
+       <li>Keep follow-up appointments.</li>
+       <li>Seek professional help if symptoms worsen.</li>
+      </ul>
+    </div>`
+
+    :
+
+    '<div class="listItem">Enter aftercare details first.</div>';
+}
+
+function makeDischarge(){
+
+  const text=(
+    $('dischargeText')?.value||''
+  ).trim();
+
+  $('dischargeResult').innerHTML=
+
+    text
+
+    ?
+
+    `<div class="listItem">
+      <b>Discharge summary checklist</b>
+      <p>${escapeHtml(text)}</p>
+      <ul>
+       <li>Medicines</li>
+       <li>Follow-up date</li>
+       <li>Reports/documents</li>
+       <li>Warning signs and when to seek help</li>
+      </ul>
+    </div>`
+
+    :
+
+    '<div class="listItem">Enter discharge details first.</div>';
+}
+
+
+/* =========================
+   HEALTH VAULT
+========================= */
+
+function saveVaultProfile(){
+
+  const profile={
+    patient:$('vPatient').value.trim(),
+    name:$('vName').value.trim(),
+    dob:$('vDob').value,
+    blood:$('vBlood').value.trim(),
+    allergy:$('vAllergy').value.trim()
+  };
+
+  set('hpfafVaultProfile',profile);
+
+  notify('Health profile saved.');
+}
+
+function addVaultRecord(){
+
+  const arr=get('hpfafVault',[]);
+
+  arr.unshift({
+
+    id:uid(),
+
+    type:$('vType').value,
+
+    title:$('vTitle').value.trim(),
+
+    details:$('vDetails').value.trim(),
+
+    createdAt:new Date().toISOString()
+
+  });
+
+  set('hpfafVault',arr);
+
+  loadVault();
+
+  notify('Health record added.');
+}
+
+function loadVault(){
+
+  const profile=get(
+    'hpfafVaultProfile',
+    null
+  );
+
+  const records=get(
+    'hpfafVault',
+    []
+  );
+
+  let html='';
+
+  if(profile){
+
+    html+=`
+
+      <div class="card">
+
+        <h3>Patient Profile</h3>
+
+        <p>
+          <b>Name:</b>
+          ${escapeHtml(profile.name||'—')}
+          <br>
+
+          <b>Patient ID:</b>
+          ${escapeHtml(profile.patient||'—')}
+          <br>
+
+          <b>Blood Group:</b>
+          ${escapeHtml(profile.blood||'—')}
+          <br>
+
+          <b>Allergies:</b>
+          ${escapeHtml(profile.allergy||'—')}
+        </p>
+
+      </div>
+
+    `;
+
+  }
+
+  html+=records.length
+
+    ?
+
+    records.map(r=>`
+
+      <div class="listItem">
+
+        <b>${escapeHtml(r.title||r.type)}</b>
+
+        <span class="pill">
+          ${escapeHtml(r.type)}
+        </span>
+
+        <p>
+          ${escapeHtml(r.details)}
+        </p>
+
+        <span class="small">
+          ${new Date(r.createdAt).toLocaleString()}
+        </span>
+
+      </div>
+
+    `).join('')
+
+    :
+
+    '<div class="card">No health records yet.</div>';
+
+  $('vaultContent').innerHTML=html;
+}
+
+function openSharedVault(){
+
+  const code=(
+    $('providerShareCode')?.value||''
+  ).trim();
+
+  if(!code){
+    notify('Enter share code.');
+    return;
+  }
+
+  const shares=get(
+    'hpfafVaultShares',
+    []
+  );
+
+  const share=shares.find(
+    x=>x.code===code
+  );
+
+  if(!share){
+    notify('Share code not found.');
+    return;
+  }
+
+  notify(
+    'Shared health record reference found.'
+  );
+}
+
+
+/* =========================
+   PATIENT
+========================= */
+
+function updatePatientStatus(){
+
+  const id=$('ppId').value.trim();
+
+  if(!id){
+    notify('Patient ID required');
+    return;
+  }
+
+  const a=get(
+    'hpfafPatients',
+    []
+  );
+
+  const obj={
+
+    id,
+
+    status:$('ppStatus').value,
+
+    total:+$('ppTotal').value||0,
+
+    paid:+$('ppPaid').value||0,
+
+    note:$('ppNote').value,
+
+    updatedAt:Date.now()
+
+  };
+
+  const i=a.findIndex(
+    x=>x.id===id
+  );
+
+  if(i>=0)
+    a[i]=obj;
+  else
+    a.push(obj);
+
+  set(
+    'hpfafPatients',
+    a
+  );
+
+  notify(
+    'Patient status updated.'
+  );
+
+  loadFounder();
+}
+
+function trackPatient(){
+
+  const id=$('patientId').value.trim();
+
+  const p=get(
+    'hpfafPatients',
+    []
+  ).find(x=>x.id===id);
+
+  $('patientResult').innerHTML=
+
+    p
+
+    ?
+
+    `<div class="card">
+
+      <h3>${escapeHtml(p.status)}</h3>
+
+      <p>
+        Total Cost: ₹${p.total}
+        <br>
+        Paid: ₹${p.paid}
+        <br>
+        Remaining:
+        <b>₹${Math.max(0,p.total-p.paid)}</b>
+        <br>
+        Note:
+        ${escapeHtml(p.note||'—')}
+      </p>
+
+      <span class="small">
+        Updated
+        ${new Date(p.updatedAt).toLocaleString()}
+      </span>
+
+    </div>`
+
+    :
+
+    '<div class="card">Patient/Booking ID not found.</div>';
+}
+
+
+/* =========================
+   SECOND OPINION
+========================= */
+
+function requestOpinion(){
+
+  const a=get(
+    'hpfafOpinions',
+    []
+  );
+
+  a.unshift({
+
+    id:uid(),
+
+    patient:$('opPatient').value,
+
+    condition:$('opCondition').value,
+
+    specialty:$('opSpecialty').value,
+
+    notes:$('opNotes').value,
+
+    status:'Pending',
+
+    createdAt:Date.now()
+
+  });
+
+  set(
+    'hpfafOpinions',
+    a
+  );
+
+  renderOpinions();
+
+  notify(
+    'Second opinion request submitted.'
+  );
+}
+
+function renderOpinions(){
+
+  $('opinionList').innerHTML=
+
+    get('hpfafOpinions',[])
+
+    .map(o=>`
+
+      <div class="listItem">
+
+        <b>${escapeHtml(o.condition)}</b>
+        •
+        ${escapeHtml(o.specialty)}
+
+        <br>
+
+        ${escapeHtml(o.notes)}
+
+        <br>
+
+        <span class="status pending">
+          ${escapeHtml(o.status)}
+        </span>
+
+      </div>
+
+    `).join('')
+
+    ||
+
+    '<div class="card">No requests.</div>';
+}
+
+function renderProviderOpinions(){
+
+  $('providerOpinionList').innerHTML=
+
+    get('hpfafOpinions',[])
+
+    .map(o=>`
+
+      <div class="listItem">
+
+        <b>${escapeHtml(o.condition)}</b>
+        •
+        ${escapeHtml(o.specialty)}
+
+        <br>
+
+        ${escapeHtml(o.notes)}
+
+        <br>
+
+        <span class="status ${String(o.status).toLowerCase()}">
+          ${escapeHtml(o.status)}
+        </span>
+
+        ${
+          o.status==='Pending'
+
+          ?
+
+          `<button
+            class="btn green"
+            onclick="updateOpinion('${o.id}','Accepted')">
+            Accept
+          </button>
+
+          <button
+            class="btn red"
+            onclick="updateOpinion('${o.id}','Denied')">
+            Deny
+          </button>`
+
+          :
+          ''
+        }
+
+      </div>
+
+    `).join('')
+
+    ||
+
+    '<div class="card">No requests.</div>';
+}
+
+function updateOpinion(id,status){
+
+  const a=get(
+    'hpfafOpinions',
+    []
+  );
+
+  const o=a.find(
+    x=>x.id===id
+  );
+
+  if(o)
+    o.status=status;
+
+  set(
+    'hpfafOpinions',
+    a
+  );
+
+  renderProviderOpinions();
+}
+
+
+/* =========================
+   GRIEVANCE
+========================= */
+
+function submitGrievance(){
+
+  const a=get(
+    'hpfafGrievances',
+    []
+  );
+
+  a.unshift({
+
+    id:'GRV-'+Date.now(),
+
+    patient:$('gPatient').value,
+
+    category:$('gCategory').value,
+
+    text:$('gText').value,
+
+    status:'Submitted',
+
+    createdAt:Date.now()
+
+  });
+
+  set(
+    'hpfafGrievances',
+    a
+  );
+
+  renderGrievances();
+
+  notify('Complaint submitted.');
+}
+
+function renderGrievances(){
+
+  $('grievanceList').innerHTML=
+
+    get('hpfafGrievances',[])
+
+    .map(g=>`
+
+      <div class="listItem">
+
+        <b>${escapeHtml(g.id)}</b>
+        •
+        ${escapeHtml(g.category)}
+
+        <br>
+
+        ${escapeHtml(g.text)}
+
+        <br>
+
+        <span class="status pending">
+          ${escapeHtml(g.status)}
+        </span>
+
+      </div>
+
+    `).join('')
+
+    ||
+
+    '<div class="card">No complaints.</div>';
+}
+
+function renderProviderGrievances(){
+
+  $('providerGrievanceList').innerHTML=
+
+    get('hpfafGrievances',[])
+
+    .map(g=>`
+
+      <div class="listItem">
+
+        <b>${escapeHtml(g.id)}</b>
+        •
+        ${escapeHtml(g.category)}
+
+        <br>
+
+        ${escapeHtml(g.text)}
+
+        <br>
+
+        <span class="status pending">
+          ${escapeHtml(g.status)}
+        </span>
+
+        <button
+          class="btn green"
+          onclick="resolveGrievance('${g.id}')">
+          Resolve
+        </button>
+
+      </div>
+
+    `).join('')
+
+    ||
+
+    '<div class="card">No grievances.</div>';
+}
+
+function resolveGrievance(id){
+
+  const a=get(
+    'hpfafGrievances',
+    []
+  );
+
+  const g=a.find(
+    x=>x.id===id
+  );
+
+  if(g)
+    g.status='Resolved';
+
+  set(
+    'hpfafGrievances',
+    a
+  );
+
+  renderProviderGrievances();
+
+  loadFounder();
+}
+
+
+/* =========================
+   YOJANA
+========================= */
+
+const schemes=[
+
+ ['Ayushman Bharat – PM-JAY',
+  'Hospitalization health cover scheme',
+  'https://pmjay.gov.in/'],
+
+ ['Ayushman Arogya Mandir',
+  'Primary healthcare services',
+  'https://aam.mohfw.gov.in/'],
+
+ ['Janani Shishu Suraksha Karyakram',
+  'Maternal and child health services',
+  'https://mohfw.gov.in/'],
+
+ ['Janani Suraksha Yojana',
+  'Maternal health support',
+  'https://nhm.gov.in/'],
+
+ ['Universal Immunization Programme',
+  'Vaccination programme',
+  'https://mohfw.gov.in/'],
+
+ ['National TB Elimination Programme',
+  'TB prevention and treatment programme',
+  'https://tbcindia.gov.in/'],
+
+ ['RBSK',
+  'Child health screening',
+  'https://nhm.gov.in/'],
+
+ ['RKSK',
+  'Adolescent health programme',
+  'https://nhm.gov.in/'],
+
+ ['PMSSY',
+  'Healthcare infrastructure initiative',
+  'https://pmssy.mohfw.gov.in/'],
+
+ ['PMSMA',
+  'Antenatal care programme',
+  'https://pmsma.mohfw.gov.in/'],
+
+ ['CGHS',
+  'Central government health services',
+  'https://cghs.gov.in/'],
+
+ ['Sickle Cell Anaemia Elimination Mission',
+  'Sickle-cell screening and care initiative',
+  'https://sickle.nhm.gov.in/']
+
+];
+
+function renderYojana(){
+
+  const q=(
+    $('yojanaSearch')?.value||''
+  ).toLowerCase();
+
+  const a=schemes.filter(
+    s=>s.join(' ')
+      .toLowerCase()
+      .includes(q)
+  );
+
+  $('yojanaList').innerHTML=
+
+    a.map(s=>`
+
+      <div
+        class="card"
+        style="margin:10px 0">
+
+        <h3>
+          ${escapeHtml(s[0])}
+        </h3>
+
+        <p>
+          ${escapeHtml(s[1])}
+        </p>
+
+        <button
+          class="btn"
+          onclick="window.open('${s[2]}','_blank')">
+          Official Information
+        </button>
+
+      </div>
+
+    `).join('');
+}
+
+
+/* =========================
+   PROVIDER HOME
+========================= */
+
+function currentProvider(){
+
+  const id=get(
+    'hpfafCurrentProvider',
+    null
+  );
+
+  return providerData().find(
+    p=>p.id===id
+  )
+  ||
+  providerData().find(
+    p=>p.status==='Approved'
+  )
+  ||
+  providerData()[0];
+}
+
+function loadProviderHome(){
+
+  const p=currentProvider();
+
+  if(!p){
+
+    $('providerHeader').innerHTML=`
+
+      <h2>No Provider Registered</h2>
+
+      <p>
+        Register your hospital or clinic first.
+      </p>
+
+    `;
+
+    return;
+  }
+
+  $('providerHeader').innerHTML=`
+
+    <h2>
+      ${escapeHtml(p.name)}
+    </h2>
+
+    <p>
+      Provider ID:
+      <b>${escapeHtml(p.registrationNumber||'—')}</b>
+
+      <br>
+
+      Status:
+      <span class="status ${String(p.status||'Pending').toLowerCase()}">
+        ${escapeHtml(p.status||'Pending')}
+      </span>
+    </p>
+
+  `;
+
+  $('providerProfileBox').innerHTML=`
+
+    <p>
+
+      <b>Type:</b>
+      ${escapeHtml(p.type||'—')}
+
+      <br>
+
+      <b>Doctor:</b>
+      ${escapeHtml(p.doctor||'—')}
+
+      <br>
+
+      <b>Phone:</b>
+      ${escapeHtml(p.phone||'—')}
+
+      <br>
+
+      <b>City:</b>
+      ${escapeHtml(p.city||'—')}
+
+      <br>
+
+      <b>Address:</b>
+      ${escapeHtml(p.address||'—')}
+
+      <br>
+
+      <b>Specialty:</b>
+      ${escapeHtml(p.specialty||'—')}
+
+    </p>
+
+  `;
+
+  renderProviderRequests();
+}
+
+
+/* =========================
+   INVENTORY
+========================= */
+
+function saveInventory(){
+
+  const p=currentProvider();
+
+  if(!p){
+    return notify(
+      'Register provider first.'
+    );
+  }
+
+  const a=get(
+    'hpfafInventory',
+    []
+  );
+
+  const type=$('invType').value;
+
+  const name=$('invName').value.trim();
+
+  const key=type+'|'+name;
+
+  const x=a.find(
+    i=>
+      i.providerId===p.id &&
+      i.key===key
+  );
+
+  const obj={
+
+    id:x?.id||uid(),
+
+    providerId:p.id,
+
+    providerName:p.name,
+
+    type,
+
+    name,
+
+    key,
+
+    qty:+$('invQty').value||0,
+
+    ttl:+$('invTTL').value||30,
+
+    updatedAt:Date.now()
+
+  };
+
+  if(x)
+    Object.assign(x,obj);
+  else
+    a.push(obj);
+
+  set(
+    'hpfafInventory',
+    a
+  );
+
+  loadProviderInventory();
+}
+
+function loadProviderInventory(){
+
+  const p=currentProvider();
+
+  const a=
+    get('hpfafInventory',[])
+    .filter(
+      x=>!p||x.providerId===p.id
+    );
+
+  $('providerInventoryList').innerHTML=
+
+    a.length
+
+    ?
+
+    a.map(x=>{
+
+      const fresh=
+        Date.now()-x.updatedAt<=x.ttl*60000;
+
+      return `
+
+        <div class="listItem">
+
+          <b>
+            ${escapeHtml(x.type)}
+            ${x.name?' — '+escapeHtml(x.name):''}
+          </b>
+
+          • Qty ${x.qty}
+
+          <br>
+
+          <span class="status ${fresh?'fresh':'stale'}">
+            ${fresh?'Fresh / Verified':'Stale / Needs Update'}
+          </span>
+
+          <span class="small">
+            TTL ${x.ttl} min
+          </span>
+
+        </div>
+
+      `;
+
+    }).join('')
+
+    :
+
+    '<div class="card">No inventory records.</div>';
+}
+
+function refreshInventoryTTL(){
+
+  loadProviderInventory();
+
+  renderBeds();
+
+  notify(
+    'Inventory freshness refreshed.'
+  );
+}
+
+
+/* =========================
+   PROVIDER COST
+========================= */
+
+function saveProviderCost(){
+
+  const p=currentProvider();
+
+  if(!p)
+    return notify(
+      'Register provider first.'
+    );
+
+  const arr=get(
+    'hpfafCosts',
+    []
+  );
+
+  const obj={
+
+    providerId:p.id,
+
+    providerName:p.name,
+
+    city:p.city,
+
+    consult:+$('cConsult').value||0,
+
+    general:+$('cGeneral').value||0,
+
+    icu:+$('cICU').value||0,
+
+    ccu:+$('cCCU').value||0,
+
+    nicu:+$('cNICU').value||0,
+
+    ot:+$('cOT').value||0,
+
+    path:+$('cPath').value||0,
+
+    radio:+$('cRadio').value||0,
+
+    medicine:+$('cMedicine').value||0,
+
+    other:+$('cOther').value||0,
+
+    updatedAt:Date.now()
+
+  };
+
+  const i=arr.findIndex(
+    x=>x.providerId===p.id
+  );
+
+  if(i>=0)
+    arr[i]=obj;
+  else
+    arr.push(obj);
+
+  set(
+    'hpfafCosts',
+    arr
+  );
+
+  notify(
+    'Provider costs saved. Public can view them.'
+  );
+}
+
+function loadProviderCost(){
+
+  const p=currentProvider();
+
+  const c=
+    get('hpfafCosts',[])
+    .find(
+      x=>x.providerId===p?.id
+    );
+
+  if(!c)return;
+
+  $('cConsult').value=c.consult;
+  $('cGeneral').value=c.general;
+  $('cICU').value=c.icu;
+  $('cCCU').value=c.ccu;
+  $('cNICU').value=c.nicu;
+  $('cOT').value=c.ot;
+  $('cPath').value=c.path;
+  $('cRadio').value=c.radio;
+  $('cMedicine').value=c.medicine;
+  $('cOther').value=c.other;
+}
+
+
+/* =========================
+   FOUNDER
+========================= */
+
+function loadFounder(){
+
+  try{
+
+    const ps=providerData();
+
+    const pending=
+      ps.filter(
+        p=>(p.status||'Pending')==='Pending'
+      ).length;
+
+    const approved=
+      ps.filter(
+        p=>p.status==='Approved'
+      ).length;
+
+    const rejected=
+      ps.filter(
+        p=>p.status==='Rejected'
+      ).length;
+
+    if($('founderStats'))
+
+      $('founderStats').innerHTML=`
+
+        <div class="card">
+          <h3>Providers</h3>
+          <b>${ps.length}</b>
+        </div>
+
+        <div class="card">
+          <h3>Pending</h3>
+          <b>${pending}</b>
+        </div>
+
+        <div class="card">
+          <h3>Approved</h3>
+          <b>${approved}</b>
+        </div>
+
+        <div class="card">
+          <h3>Rejected</h3>
+          <b>${rejected}</b>
+        </div>
+
+      `;
+
+    renderFounderProviders();
+
+    renderFounderInventory();
+
+    renderFounderPatients();
+
+    if(
+      typeof renderFounderGrievances==='function' &&
+      $('founderGrievances')
+    )
+      renderFounderGrievances();
+
+  }catch(e){
+
+    console.error(
+      'Founder load error:',
+      e
+    );
+
+    if($('founderStats'))
+
+      $('founderStats').innerHTML=`
+
+        <div class="card">
+
+          <h3>
+            Founder Control Center
+          </h3>
+
+          <p>
+            Unable to load founder data.
+          </p>
+
+          <p class="small">
+            ${escapeHtml(e.message||'Unknown error')}
+          </p>
+
+        </div>
+
+      `;
+  }
+}
+
+function setProviderStatus(id,status){
+
+  const a=providerData();
+
+  const p=a.find(
+    x=>x.id===id
+  );
+
+  if(!p)return;
+
+  p.status=status;
+
+  set(
+    'hpfafProviders',
+    a
+  );
+
+  renderFounderProviders();
+
+  renderPublicProviders();
+
+  if(status==='Approved')
+    set(
+      'hpfafCurrentProvider',
+      p.id
+    );
+
+  notify(
+    'Provider '+status+'.'
+  );
+}
+
+function renderFounderProviders(){
+
+  const box=$('founderProviders');
+
+  if(!box)return;
+
+  const arr=providerData();
+
+  if(!arr.length){
+
+    box.innerHTML=
+      '<div class="card">No providers registered.</div>';
+
+    return;
+  }
+
+  box.innerHTML=
+
+    arr.map(p=>{
+
+      const status=
+        p.status||'Pending';
+
+      const cls=
+        status.toLowerCase();
+
+      return `
+
+        <div
+          class="card"
+          style="margin:10px 0">
+
+          <h3>
+
+            ${escapeHtml(
+              p.name||'Unnamed Provider'
+            )}
+
+            <span class="pill">
+              ${escapeHtml(
+                p.type||'Hospital'
+              )}
+            </span>
+
+          </h3>
+
+          <p>
+
+            <b>Auto Provider ID:</b>
+            ${escapeHtml(
+              p.registrationNumber||'—'
+            )}
+
+            <br>
+
+            <b>
+              Government registration/license:
+            </b>
+
+            ${escapeHtml(
+              p.license||'Not provided'
+            )}
+
+            <br>
+
+            ${escapeHtml(
+              p.address||''
+            )}
+
+            <br>
+
+            Contact:
+            ${escapeHtml(
+              p.phone||'—'
+            )}
+
+            <br>
+
+            Status:
+
+            <span class="status ${cls}">
+              ${escapeHtml(status)}
+            </span>
+
+          </p>
+
+          <button
+            class="btn green"
+            onclick="setProviderStatus('${p.id}','Approved')">
+            Accept
+          </button>
+
+          <button
+            class="btn red"
+            onclick="setProviderStatus('${p.id}','Rejected')">
+            Reject
+          </button>
+
+        </div>
+
+      `;
+
+    }).join('');
+}
+
+function renderFounderInventory(){
+
+  const a=get(
+    'hpfafInventory',
+    []
+  );
+
+  $('founderInventory').innerHTML=
+
+    a.length
+
+    ?
+
+    a.map(x=>`
+
+      <div class="listItem">
+
+        <b>
+          ${escapeHtml(x.providerName)}
+        </b>
+
+        —
+        ${escapeHtml(x.type)}
+
+        ${x.name
+          ?
+          ' / '+escapeHtml(x.name)
+          :
+          ''
+        }
+
+        —
+        Qty ${x.qty}
+
+        —
+
+        <span
+          class="status ${
+            Date.now()-x.updatedAt<=x.ttl*60000
+            ?
+            'fresh'
+            :
+            'stale'
+          }">
+
+          ${
+            Date.now()-x.updatedAt<=x.ttl*60000
+            ?
+            'Fresh'
+            :
+            'Stale'
+          }
+
+        </span>
+
+      </div>
+
+    `).join('')
+
+    :
+
+    '<div class="card">No inventory records.</div>';
+}
+
+function renderFounderPatients(){
+
+  $('founderPatients').innerHTML=
+
+    get('hpfafPatients',[])
+
+    .map(p=>`
+
+      <div class="listItem">
+
+        <b>${escapeHtml(p.id)}</b>
+
+        •
+        ${escapeHtml(p.status)}
+
+        • Total ₹${p.total}
+
+        • Paid ₹${p.paid}
+
+        • Remaining ₹${Math.max(
+          0,
+          p.total-p.paid
+        )}
+
+      </div>
+
+    `).join('')
+
+    ||
+
+    '<div class="card">No patient records.</div>';
+}
+
+function renderFounderGrievances(){
+
+  $('founderGrievances').innerHTML=
+
+    get('hpfafGrievances',[])
+
+    .map(g=>`
+
+      <div class="listItem">
+
+        <b>${escapeHtml(g.id)}</b>
+        •
+        ${escapeHtml(g.category)}
+
+        •
+
+        <span class="status pending">
+          ${escapeHtml(g.status)}
+        </span>
+
+        <br>
+
+        ${escapeHtml(g.text)}
+
+      </div>
+
+    `).join('')
+
+    ||
+
+    '<div class="card">No grievances.</div>';
+}
+
+
+/* =========================
+   DEMO DATA + START
+========================= */
+
+function loadDemo(){
+
+  if(
+    !localStorage.getItem('hpfafCosts')
+  ){
+
+    set(
+      'hpfafCosts',
+      [
+        {
+          providerId:'demo-provider',
+          providerName:'Demo City Hospital',
+          city:'Demo City',
+          consult:500,
+          general:1500,
+          icu:5000,
+          ccu:5500,
+          nicu:6000,
+          ot:10000,
+          path:800,
+          radio:1200,
+          medicine:1500,
+          other:500
+        }
+      ]
+    );
+
+  }
+
+}
+
+document.addEventListener(
+  'DOMContentLoaded',
+  ()=>{
+
+    loadDemo();
+
+    renderPublicRequests();
+
+    renderPublicProviders();
+
+    renderYojana();
+
+   //REAL backend connection check
+	 checkBackend();
+
+  }
+);
+
+setInterval(
+  ()=>{
+
+    if(
+      $('bedScreen')?.classList.contains('active')
+    )
+      renderBeds();
+
+    if(
+      $('providerInventoryScreen')
+      ?.classList.contains('active')
+    )
+      loadProviderInventory();
+
+    if(
+      $('founderScreen')
+      ?.classList.contains('active')
+    )
+      loadFounder();
+
+  },
+  30000
+);
+
+</script>
+
+<script>
+function emergencyCall(number) {
+
+  if (!navigator.geolocation) {
+    alert("Location service is not supported on this device.");
+    window.location.href = "tel:" + number;
+    return;
+  }
+
+  navigator.geolocation.getCurrentPosition(
+    function(position) {
+
+      const lat = position.coords.latitude;
+      const lng = position.coords.longitude;
+
+      console.log("Emergency Location:", lat, lng);
+
+      // Save latest emergency location
+      localStorage.setItem("hpfafEmergencyLocation", JSON.stringify({
+        latitude: lat,
+        longitude: lng,
+        time: new Date().toISOString()
+      }));
+
+      // Open emergency call
+      window.location.href = "tel:" + number;
+    },
+
+    function(error) {
+      alert("Location permission nahi mili. Emergency call continue hoga.");
+      window.location.href = "tel:" + number;
+    },
+
+    {
+      enableHighAccuracy: true,
+      timeout: 10000,
+      maximumAge: 0
+    }
+  );
+}
+</script>
+</body>
+</html>
+

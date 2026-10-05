@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>HPFAF - Provider Dashboard</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:#f3f6fa;
+  color:#172033;
+}
+
+header{
+  background:#073b4c;
+  color:white;
+  padding:18px 20px;
+}
+
+.header{
+  max-width:1200px;
+  margin:auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.logo{
+  font-size:24px;
+  font-weight:bold;
+}
+
+.provider-label{
+  font-size:13px;
+  opacity:.8;
+  margin-top:4px;
+}
+
+.profile{
+  background:white;
+  color:#073b4c;
+  padding:9px 13px;
+  border-radius:8px;
+  border:0;
+}
+
+.container{
+  max-width:1200px;
+  margin:auto;
+  padding:22px;
+}
+
+.welcome{
+  background:white;
+  border-radius:15px;
+  padding:22px;
+  margin-bottom:20px;
+}
+
+.welcome h1{
+  margin-bottom:7px;
+}
+
+.welcome p{
+  color:#697586;
+}
+
+.status{
+  display:inline-block;
+  margin-top:12px;
+  background:#e7f7ed;
+  color:#17803d;
+  padding:7px 12px;
+  border-radius:20px;
+  font-size:13px;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:15px;
+}
+
+.stat{
+  background:white;
+  padding:20px;
+  border-radius:14px;
+  box-shadow:0 3px 12px #0000000b;
+}
+
+.stat-icon{
+  font-size:28px;
+}
+
+.stat h2{
+  margin-top:8px;
+}
+
+.stat p{
+  color:#697586;
+  font-size:13px;
+}
+
+.section-title{
+  margin:28px 0 13px;
+}
+
+.dashboard{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:15px;
+}
+
+.card{
+  background:white;
+  padding:20px;
+  border-radius:14px;
+  cursor:pointer;
+  box-shadow:0 3px 12px #0000000b;
+  transition:.2s;
+}
+
+.card:hover{
+  transform:translateY(-3px);
+}
+
+.icon{
+  font-size:32px;
+  margin-bottom:10px;
+}
+
+.card h3{
+  margin-bottom:6px;
+}
+
+.card p{
+  color:#697586;
+  font-size:14px;
+  line-height:1.4;
+}
+
+.update{
+  margin-top:22px;
+  background:white;
+  padding:22px;
+  border-radius:15px;
+}
+
+.update-row{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 0;
+  border-bottom:1px solid #eee;
+}
+
+.update-row:last-child{
+  border-bottom:0;
+}
+
+.update button{
+  background:#073b4c;
+  color:white;
+  border:0;
+  padding:9px 14px;
+  border-radius:7px;
+  cursor:pointer;
+}
+
+footer{
+  text-align:center;
+  padding:25px;
+  color:#697586;
+  font-size:13px;
+}
+
+@media(max-width:800px){
+
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .dashboard{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:500px){
+
+  .stats{
+    grid-template-columns:1fr;
+  }
+
+  .header{
+    gap:10px;
+    align-items:flex-start;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="header">
+
+    <div>
+      <div class="logo">🏥 HPFAF</div>
+      <div class="provider-label">
+        Provider Dashboard
+      </div>
+    </div>
+
+    <button class="profile" onclick="profile()">
+      👤 Profile
+    </button>
+
+  </div>
+
+</header>
+
+<main class="container">
+
+  <section class="welcome">
+
+    <h1>Welcome, Provider 👋</h1>
+
+    <p>
+      Manage your hospital, doctor and healthcare services from one place.
+    </p>
+
+    <span class="status">
+      ● Provider Account
+    </span>
+
+  </section>
+
+
+  <!-- STATISTICS -->
+
+  <section class="stats">
+
+    <div class="stat">
+      <div class="stat-icon">🏥</div>
+      <h2>1</h2>
+      <p>Registered Facility</p>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">👨‍⚕️</div>
+      <h2>0</h2>
+      <p>Doctors</p>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">🩸</div>
+      <h2>0</h2>
+      <p>Blood Units</p>
+    </div>
+
+    <div class="stat">
+      <div class="stat-icon">💊</div>
+      <h2>0</h2>
+      <p>Medicines</p>
+    </div>
+
+  </section>
+
+
+  <h2 class="section-title">
+    Provider Services
+  </h2>
+
+
+  <section class="dashboard">
+
+    <div class="card" onclick="openPage('hospital-profile.html')">
+      <div class="icon">🏥</div>
+      <h3>Hospital / Clinic Profile</h3>
+      <p>
+        Manage facility name, address, contact and services.
+      </p>
+    </div>
+
+
+    <div class="card" onclick="openPage('doctor-profile.html')">
+      <div class="icon">👨‍⚕️</div>
+      <h3>Doctor Management</h3>
+      <p>
+        Add doctors, specialization, contact and consultation details.
+      </p>
+    </div>
+
+
+    <div class="card" onclick="openPage('blood-provider.html')">
+      <div class="icon">🩸</div>
+      <h3>Blood Availability</h3>
+      <p>
+        Update available blood groups and quantities.
+      </p>
+    </div>
+
+
+    <div class="card" onclick="openPage('medicine-provider.html')">
+      <div class="icon">💊</div>
+      <h3>Medicine Availability</h3>
+      <p>
+        Update medicines currently available.
+      </p>
+    </div>
+
+
+    <div class="card" onclick="openPage('beds.html')">
+      <div class="icon">🛏️</div>
+      <h3>Beds / ICU</h3>
+      <p>
+        Manage available beds and ICU information.
+      </p>
+    </div>
+
+
+    <div class="card" onclick="openPage('provider-location.html')">
+      <div class="icon">📍</div>
+      <h3>Location</h3>
+      <p>
+        Manage your facility's location and service area.
+      </p>
+    </div>
+
+
+    <div class="card" onclick="openPage('requests.html')">
+      <div class="icon">📋</div>
+      <h3>Service Requests</h3>
+      <p>
+        View incoming healthcare-related requests.
+      </p>
+    </div>
+
+
+    <div class="card" onclick="openPage('notifications.html')">
+      <div class="icon">🔔</div>
+      <h3>Notifications</h3>
+      <p>
+        View important HPFAF notifications.
+      </p>
+    </div>
+
+
+    <div class="card" onclick="openPage('verification.html')">
+      <div class="icon">✅</div>
+      <h3>Verification</h3>
+      <p>
+        Check your provider verification status.
+      </p>
+    </div>
+
+  </section>
+
+
+  <!-- QUICK UPDATE -->
+
+  <section class="update">
+
+    <h2>Quick Availability Update</h2>
+
+    <div class="update-row">
+      <div>
+        <strong>🩸 Blood Availability</strong>
+        <p style="color:#697586;font-size:13px;">
+          Update blood stock
+        </p>
+      </div>
+
+      <button onclick="openPage('blood-provider.html')">
+        Update
+      </button>
+    </div>
+
+
+    <div class="update-row">
+      <div>
+        <strong>💊 Medicine Availability</strong>
+        <p style="color:#697586;font-size:13px;">
+          Update medicine stock
+        </p>
+      </div>
+
+      <button onclick="openPage('medicine-provider.html')">
+        Update
+      </button>
+    </div>
+
+
+    <div class="update-row">
+      <div>
+        <strong>🛏️ Beds / ICU</strong>
+        <p style="color:#697586;font-size:13px;">
+          Update available beds
+        </p>
+      </div>
+
+      <button onclick="openPage('beds.html')">
+        Update
+      </button>
+    </div>
+
+  </section>
+
+</main>
+
+
+<footer>
+  HPFAF Provider Portal<br>
+  Healthcare Service Management
+</footer>
+
+
+<script>
+
+function openPage(page){
+  window.location.href=page;
+}
+
+function profile(){
+  window.location.href="provider-profile.html";
+}
+
+</script>
+
+</body>
+</html>
